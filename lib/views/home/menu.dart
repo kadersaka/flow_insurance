@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/home/component/assurer_ecran_brise.dart';
+import 'package:flowinsurance/views/home/component/assurer_nouveau_telephone.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../customwidget/boutton.dart';
-import 'ImageProfilPage.dart';
+import 'component/ImageProfilPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -237,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           InkWell(
-            onTap: () {},
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AssurerNouveauTelephone())),
             child: Container(
               margin: const EdgeInsets.all(5),
               height: 120,

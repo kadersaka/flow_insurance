@@ -1,5 +1,6 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
+import 'package:flowinsurance/views/diagnostic/ScreenTestPage.dart';
 import 'package:flowinsurance/views/diagnostic/diagnostic_result.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +83,11 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                   return Column(
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          if (i == 1) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenTestPage()));
+                          }
+                        },
                         child: Container(
                           height: 70,
                           width: 80,

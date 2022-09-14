@@ -21,7 +21,7 @@
               android:resource="@style/NormalTheme"
               />
              <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="YOUR KEY HERE"
+               android:value="AIzaSyD4MJc1IEbCh_pITz7rAYDvjoa99Z7Uy_0"
                />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

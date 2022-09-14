@@ -3,7 +3,7 @@ import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PartenairePage extends StatefulWidget {
- const PartenairePage({Key? key}) : super(key: key);
+  const PartenairePage({Key? key}) : super(key: key);
   @override
   State<PartenairePage> createState() => _PartenairePageState();
 }
@@ -22,13 +22,11 @@ class _PartenairePageState extends State<PartenairePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            Text("Alafia entreprise", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            Text("Nos partenaires", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             Text.rich(
-                TextSpan(
-                    text: "Positionnez vous a l'endroit ou vous voulez faire votre activite de Mobile Money et cliquez sur le bouton",
-                    style: TextStyle(color: Colors.black, fontSize: 10),
-                    children: <InlineSpan>[TextSpan(text: " Prendre ma localisation", style: TextStyle(color: Color.fromARGB(255, 166, 231, 45), fontSize: 10))]),
-                maxLines: 5),
+              TextSpan(text: "Vous pouvez vous rendre chez l'un de vos partenaires pour l'achat de vos smartphones et beneficier d'une assurance", style: TextStyle(color: Colors.black, fontSize: 10)),
+              maxLines: 5,
+            ),
           ],
         ),
       ),
@@ -37,12 +35,11 @@ class _PartenairePageState extends State<PartenairePage> {
         child: Stack(
           children: [
             PlacePicker(
-              apiKey: "GOOGLE_CLOUD_API_KEY",
+              apiKey: "AIzaSyD4MJc1IEbCh_pITz7rAYDvjoa99Z7Uy_0",
               initialPosition: const LatLng(6.371014, 2.410017),
+              
               useCurrentLocation: true,
               selectInitialPosition: true,
-              forceSearchOnZoomChanged: true,
-              usePlaceDetailSearch: true,
               automaticallyImplyAppBarLeading: false,
               hintText: "Entrez une adresse",
               selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocuse) {

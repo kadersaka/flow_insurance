@@ -22,8 +22,7 @@ class _DemanderReparationState extends State<DemanderReparation> {
         children: [
           IconButton(
               onPressed: (() {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const DetailEcranBrise()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DetailEcranBrise()));
               }),
               icon: const Icon(Icons.arrow_back)),
           Center(
@@ -40,14 +39,7 @@ class _DemanderReparationState extends State<DemanderReparation> {
             height: 300,
             width: double.infinity,
             margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 1,
-                      blurStyle: BlurStyle.outer)
-                ]),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1, blurStyle: BlurStyle.outer)]),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: CustomWidget().myText(StringData.faireDemande, size: 15),
@@ -66,21 +58,18 @@ class _DemanderReparationState extends State<DemanderReparation> {
                     color: Color(0xffD3E12B),
                   ),
                 ),
-                CustomWidget()
-                    .myText(StringData.uploader, size: 15, color: Colors.grey)
+                CustomWidget().myText(StringData.uploader, size: 15, color: Colors.grey)
               ],
             ),
           ),
           const Expanded(child: SizedBox.expand()),
           Center(
               child: CustomWidget().mybutton(
-                  size,
-                  StringData.submit,
-                  () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DemanderReparation())))),
-          const SizedBox(
-            height: 15,
-          )
+            size,
+            StringData.submit,
+            () => {},
+          )),
+          SizedBox(height: 15)
         ],
       )),
     );
