@@ -4,6 +4,8 @@ import 'package:flowinsurance/views/home/principal.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../../../constants/styles.dart';
+
 class AssurerEcranBrise extends StatefulWidget {
   const AssurerEcranBrise({super.key});
 
@@ -55,16 +57,8 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
                     height: 40,
                     width: 40,
                     margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 1,
-                              blurStyle: BlurStyle.outer)
-                        ]),
-                    child: const Icon(Icons.phone_android,
-                        color: Colors.grey, size: 30),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1, blurStyle: BlurStyle.outer)]),
+                    child: const Icon(Icons.phone_android, color: Colors.grey, size: 30),
                   ),
                 ),
                 Expanded(
@@ -78,10 +72,8 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomWidget().myText(sliderValue.toStringAsFixed(2),
-                      size: 70, isbols: true),
-                  CustomWidget()
-                      .myText(StringData.devise, size: 40, isbols: true),
+                  CustomWidget().myText(sliderValue.toStringAsFixed(2), size: 70, isbols: true),
+                  CustomWidget().myText(StringData.devise, size: 40, isbols: true),
                 ],
               ),
             ),
@@ -107,17 +99,14 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
             SizedBox(
               height: size.height / 8,
             ),
-            Center(
-                child: CustomWidget()
-                    .mybutton(size, StringData.payer, () => _showMyDialog())),
+            Center(child: CustomWidget().mybutton(size, StringData.payer, () => _showMyDialog())),
           ],
         ),
       )),
     );
   }
 
-  Widget inputWidget(
-      String headText, TextEditingController controller, Size size) {
+  Widget inputWidget(String headText, TextEditingController controller, Size size) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -140,20 +129,16 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
             obscureText: true,
             autofocus: false,
             decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
                 // borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
-              errorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               //hintText: StringData.motDePasse,
               contentPadding: EdgeInsets.all(20),
-              focusedErrorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
             ),
             cursorColor: Colors.black,
             controller: controller,
@@ -197,24 +182,14 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
                   ),
                 ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      minimumSize:
-                          Size(MediaQuery.of(context).size.width * 0.5, 43),
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: Colors.black, width: 1),
-                      ),
-                    ),
+                    style: ButtonStyle1(MediaQuery.of(context).size.width * 0.5),
+                    // style: ButtonStyle1(size),    
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const PrincipalPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
                     },
                     child: Text(
                       StringData.compris,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )),
               ],
             ),

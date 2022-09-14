@@ -1,5 +1,6 @@
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
+import 'package:flowinsurance/constants/styles.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/authenticate/register/create_successful.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AccueilPage()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -93,20 +93,16 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     //labelText: StringData.numDeTelephone,
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue)),
+                    enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       // borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
-                    errorBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red)),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue)),
+                    errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     hintText: "96058266",
                     contentPadding: const EdgeInsets.all(20),
-                    focusedErrorBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red)),
+                    focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                   ),
                   cursorColor: Colors.black,
                   controller: passwordController,
@@ -137,20 +133,16 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   autofocus: false,
                   decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue)),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       // borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue)),
+                    errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     //hintText: StringData.motDePasse,
                     contentPadding: EdgeInsets.all(20),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red)),
+                    focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                   ),
                   cursorColor: Colors.black,
                   controller: passwordController,
@@ -182,23 +174,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      minimumSize: Size(size.width * 0.8, 43),
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: Colors.black, width: 1),
-                      ),
-                    ),
+                    style: ButtonStyle1(size.width * 0.8),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CreateSuccessfull()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull()));
                     },
                     child: Text(
                       StringData.seConnecter,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )),
               ),
               const SizedBox(

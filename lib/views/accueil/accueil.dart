@@ -4,6 +4,7 @@ import 'package:flowinsurance/views/authenticate/register/register.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/strings.dart';
+import '../../constants/styles.dart';
 
 class AccueilPage extends StatefulWidget {
   const AccueilPage({super.key});
@@ -23,10 +24,7 @@ class _AccueilPageState extends State<AccueilPage> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
-            child: Text(StringData.texteAbonneMTN,
-                textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            child: Text(StringData.texteAbonneMTN, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -60,48 +58,27 @@ class _AccueilPageState extends State<AccueilPage> {
             child: SizedBox.expand(),
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                minimumSize: Size(size.width * 0.8, 43),
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+              style: ButtonStyle1(MediaQuery.of(context).size.width * 0.8),
+              // style: ButtonStyle1(size),
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: Text(
                 StringData.seConnecter,
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
               )),
           const SizedBox(
             height: 10,
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                minimumSize: Size(size.width * 0.8, 43),
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: const BorderSide(color: Colors.black, width: 1),
-                ),
-              ),
+              style: ButtonStyle1(MediaQuery.of(context).size.width * 0.8, reverse: true),
+              // style: ButtonStyle1(size),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RegisterPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterPage()));
               },
               child: Text(
                 StringData.senregistrer,
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
               )),
           const SizedBox(
             height: 15,

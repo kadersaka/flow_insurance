@@ -3,6 +3,8 @@ import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/styles.dart';
+
 class CreateSuccessfull extends StatefulWidget {
   const CreateSuccessfull({super.key});
 
@@ -37,9 +39,7 @@ class _CreateSuccessfullState extends State<CreateSuccessfull> {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5)),
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(5)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,8 +52,7 @@ class _CreateSuccessfullState extends State<CreateSuccessfull> {
                         )),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 8, top: 12, bottom: 12),
+                    padding: const EdgeInsets.only(left: 8, top: 12, bottom: 12),
                     child: Text(StringData.pourVerifier,
                         style: const TextStyle(
                           //fontWeight: FontWeight.bold,
@@ -114,24 +113,14 @@ class _CreateSuccessfullState extends State<CreateSuccessfull> {
                   ),
                 ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      minimumSize:
-                          Size(MediaQuery.of(context).size.width * 0.8, 43),
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: Colors.black, width: 1),
-                      ),
-                    ),
+                    style: ButtonStyle1(MediaQuery.of(context).size.width * 0.8),
+                    // style: ButtonStyle1(size),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AccueilDiagnostic()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
                     },
                     child: Text(
                       StringData.autoriserIdentification,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )),
               ],
             ),

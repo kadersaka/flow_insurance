@@ -23,8 +23,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
             height: 134,
             width: double.infinity,
             color: const Color.fromARGB(232, 242, 240, 183),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 children: [
                   const SizedBox(
@@ -59,71 +58,48 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                   const SizedBox(
                     width: 3,
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: CustomWidget()
-                          .myText(StringData.model, isbols: true)),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: CustomWidget()
-                          .myText(StringData.myModel, isbols: true)),
+                  Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.model, isbols: true)),
+                  Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.myModel, isbols: true)),
                   const SizedBox(
                     width: 10,
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child:
-                          CustomWidget().myText(StringData.imei, isbols: true)),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomWidget()
-                          .myText(StringData.myIme, isbols: true)),
+                  Padding(padding: const EdgeInsets.all(8), child: CustomWidget().myText(StringData.imei, isbols: true)),
+                  Padding(padding: const EdgeInsets.only(left: 4), child: CustomWidget().myText(StringData.myIme, isbols: true)),
                 ],
               ),
             ]),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
-            child: CustomWidget().myText(StringData.phoneDiagn,
-                isbols: true, color: const Color(0xff185182), size: 30),
+            child: CustomWidget().myText(StringData.phoneDiagn, isbols: true, color: const Color(0xff185182), size: 30),
           ),
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomWidget()
-                  .myText(StringData.resulDiagnos, isbols: false, size: 15)),
+          Padding(padding: const EdgeInsets.all(10), child: CustomWidget().myText(StringData.resulDiagnos, isbols: false, size: 15)),
           Expanded(
             child: GridView.builder(
                 itemCount: StringData.essai.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                 itemBuilder: (context, i) {
                   return Column(
                     children: [
-                      Container(
-                        height: 70,
-                        width: 80,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 0.5)),
-                        child: Image.asset(
-                          "assets/${StringData.essai[i][1]}",
-                          fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 70,
+                          width: 80,
+                          decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
+                          child: Image.asset(
+                            "assets/${StringData.essai[i][1]}",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      CustomWidget()
-                          .myText(StringData.essai[i][0], isbols: false),
+                      const SizedBox(height: 3),
+                      CustomWidget().myText(StringData.essai[i][0], isbols: false),
                     ],
                   );
                 }),
           ),
-          Center(
-              child: CustomWidget().mybutton(
-                  size,
-                  StringData.continuer,
-                  () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DiagnosticResult()))))
+          Center(child: CustomWidget().mybutton(size, StringData.continuer, () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DiagnosticResult()))))
         ],
       )),
     );
