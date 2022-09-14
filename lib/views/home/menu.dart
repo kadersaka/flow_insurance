@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/home/component/assurer_ecran_brise.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../customwidget/boutton.dart';
+import 'ImageProfilPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,91 +16,116 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late File? imageFile;
+  @override
+  void initState() {
+    imageFile = null;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+          child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 134,
-            width: double.infinity,
-            color: const Color.fromARGB(232, 242, 240, 183),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.phone_android),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      StringData.votreTelephone,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+          ClipPath(
+            clipper: CustomShape(),
+            child: Container(
+              height: 200,
+              width: double.infinity,
+              decoration: const BoxDecoration(color: Color.fromARGB(232, 223, 223, 218)),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(
+                  children: [
+                    const SizedBox(
+                      height: 8,
                     ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  StringData.infinix,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Color(0xff185182),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.phone_android),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        StringData.votreTelephone,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Expanded(child: SizedBox()),
+                    InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageProfilPage(ImageFile: imageFile, fun: setImageFile))),
+                      child: Container(
+                          height: 50,
+                          width: 50,
+                          margin: const EdgeInsets.all(5),
+                          child: CircleAvatar(
+                            // backgroundColor: Colors.black,
+                            radius: 100,
+                            // backgroundImage: AssetImage(ImagePath),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              child: CircleAvatar(
+                                radius: 40,
+                                child: ClipOval(
+                                  child: imageFile != null
+                                      ? Image.file(
+                                          imageFile!,
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Icon(CupertinoIcons.person_crop_circle_fill, color: Color(0xffEEF7FF)),
+                                ),
+                              ),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    StringData.infinix,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Color(0xff185182),
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 3,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: CustomWidget()
-                          .myText(StringData.model, isbols: true)),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: CustomWidget()
-                          .myText(StringData.myModel, isbols: true)),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child:
-                          CustomWidget().myText(StringData.imei, isbols: true)),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: CustomWidget()
-                          .myText(StringData.myIme, isbols: true)),
-                ],
-              ),
-            ]),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 3,
+                    ),
+                    Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.model, isbols: true)),
+                    Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.myModel, isbols: true)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Padding(padding: const EdgeInsets.all(8), child: CustomWidget().myText(StringData.imei, isbols: true)),
+                    Padding(padding: const EdgeInsets.only(left: 4), child: CustomWidget().myText(StringData.myIme, isbols: true)),
+                  ],
+                ),
+              ]),
+            ),
           ),
           const SizedBox(
             height: 24,
           ),
-          Wrap(
+          Row(
             children: [
-              InkWell(
-                onTap: (() {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AssurerEcranBrise()));//DetailEcranBrise
-                }),
-                child: Container(
-                  height: 120,
-                  width: 200,
-                  color: const Color(0xffEEF7FF),
+              Container(
+                height: 120,
+                // width: MediaQuery.of(context).size.width / 2,
+                // width: 200,
+                color: const Color(0xffEEF7FF),
+                child: InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AssurerEcranBrise())), //DetailEcranBrise
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -110,163 +139,175 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Container(
                                   height: 40,
                                   width: 40,
-                                  margin: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 1,
-                                            blurStyle: BlurStyle.outer)
-                                      ]),
-                                  child: const Icon(Icons.phone_android,
-                                      color: Colors.grey, size: 30),
+                                  margin: const EdgeInsets.fromLTRB(4, 8, 4, 0),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1, blurStyle: BlurStyle.outer)]),
+                                  child: const Icon(Icons.phone_android, color: Colors.grey, size: 30),
                                 ),
                               ),
-                              CustomWidget().myText(StringData.ecranBrise,
-                                  size: 15, isbols: true),
+                              CustomWidget().myText(StringData.ecranBrise, size: 13, isbols: true),
+                              Column(
+                                children: const [
+                                  Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25),
+                                  SizedBox(height: 20),
+                                ],
+                              ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20, bottom: 5),
-                            child: CustomWidget().myText(StringData.prix,
-                                isbols: true, size: 18),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18, left: 10, bottom: 5),
+                                    child: CustomWidget().myText(StringData.prix, isbols: true, size: 12),
+                                  ),
+                                  Container(
+                                    height: 15,
+                                    width: 120,
+                                    margin: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: const Color(0xff00FFC2)),
+                                    child: CustomWidget().myText(StringData.assurancePris, size: 10, color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                              Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                            ],
                           ),
-                          Container(
-                              height: 20,
-                              width: 146,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7),
-                                  color: const Color(0xff00FFC2)),
-                              child: CustomWidget().myText(
-                                  StringData.assurancePris,
-                                  size: 15,
-                                  color: Colors.grey)),
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 10,
-                              backgroundColor: Color(0xff00FFC2),
-                              child: Center(
-                                child: Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
+                      // Column(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: const [
+                      //     // Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25),
+                      //
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 120,
-                  width: 230,
-                  color: const Color(0xffEEF7FF),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            margin: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 1,
-                                      blurStyle: BlurStyle.outer)
-                                ]),
-                            child: const Icon(
-                              Icons.phonelink_setup_rounded,
-                              color: Colors.grey,
-                              size: 30,
-                            ),
-                          ),
-                          CustomWidget().myText("DISFONCTIONNEMENT",
-                              size: 15, isbols: true),
-                        ],
-                      ),
-                      Expanded(
-                        child: Row(
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                    height: 120,
+                    // width: MediaQuery.of(context).size.width / 2.2,
+                    color: const Color(0xffEEF7FF),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  StringData.faiteAss,
-                                  //textAlign: TextAlign.center,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              margin: const EdgeInsets.fromLTRB(4, 8, 4, 0),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1, blurStyle: BlurStyle.outer)]),
+                              child: const Icon(
+                                Icons.phonelink_setup_rounded,
+                                color: Colors.grey,
+                                size: 30,
                               ),
                             ),
+                            CustomWidget().myText("DISFONCTIONNEMENT", size: 12.5, isbols: true),
                           ],
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    StringData.faiteAss,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )
             ],
           ),
-          Container(
-            margin: const EdgeInsets.all(5),
-            height: 150,
-            width: double.infinity,
-            color: const Color(0xffFBFEE7),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.phone_android,
-                        size: 45,
-                      ),
-                    ),
-                    CustomWidget()
-                        .myText(StringData.nouveauSmar, size: 20, isbols: true),
-                  ],
-                ),
-                Expanded(
-                  child: Row(
+          InkWell(
+            onTap: () {},
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              height: 120,
+              width: double.infinity,
+              color: Color.fromARGB(255, 235, 241, 236),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            StringData.besoin,
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.phone_android,
+                          size: 40,
                         ),
                       ),
+                      CustomWidget().myText(StringData.nouveauSmar, size: 13, isbols: true),
                     ],
                   ),
-                )
-              ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              StringData.besoin,
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
       )),
     );
+  }
+
+  void setImageFile(File? newImageFile) {
+    setState(() {
+      imageFile = newImageFile;
+    });
+  }
+}
+
+class CustomShape extends CustomClipper<Path> {
+  @override
+  getClip(Size size) {
+    double height = size.height;
+    double width = size.width;
+    var path = Path();
+    path.lineTo(0, height - 50);
+    path.quadraticBezierTo(width / 2, height, width, height - 50);
+    path.lineTo(width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper oldClipper) {
+    return true;
   }
 }
