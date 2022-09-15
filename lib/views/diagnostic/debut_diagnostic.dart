@@ -43,7 +43,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: loading
-          ? CircularProgressIndicator()
+          ? Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
