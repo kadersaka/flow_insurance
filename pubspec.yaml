@@ -31,7 +31,11 @@ dependencies:
   device_information: ^0.0.4
   device_info_plus: ^4.1.2
   unique_identifier: ^0.2.0
-  # google_maps_place_picker: ^2.1.0-nullsafety.3
+  firebase_core: ^1.22.0
+  firebase_auth: ^3.8.0
+  shared_preferences: ^2.0.15
+  fluttertoast: ^8.0.9
+  
 
 dev_dependencies:
   flutter_test:

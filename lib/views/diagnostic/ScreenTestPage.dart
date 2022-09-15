@@ -31,6 +31,9 @@ class _ScreenTestPageState extends State<ScreenTestPage> {
     }
 
     void _handleDragEnd() {
+      print("########## 99999");
+      print(children);
+      print("########## 999999");
       ScaffoldMessenger.of(context).clearSnackBars();
       const snackBar = SnackBar(
         content: Text('Dragging was finished!'),
@@ -44,15 +47,25 @@ class _ScreenTestPageState extends State<ScreenTestPage> {
         final child = children.removeAt(reorder.oldIndex);
         children.insert(reorder.newIndex, child);
       }
-      setState(() {});
+      setState(() {
+        print(children);
+      });
+      print("-------------");
+      print(children);
+      print("-------------");
     }
 
     Widget _getReorderableWidget() {
+      print("##########");
+      print(children);
+      print("##########");
+
       final generatedChildren = List<Widget>.generate(
         children.length,
         (index) => Container(
           key: Key(index.toString()),
-          decoration: const BoxDecoration(color: Color.fromARGB(255, 88, 54, 54)),
+          decoration:
+              const BoxDecoration(color: Color.fromARGB(255, 88, 54, 54)),
           // height: MediaQuery.of(context).size.height / 3,
           // width: MediaQuery.of(context).size.width / 3,
           child: Center(

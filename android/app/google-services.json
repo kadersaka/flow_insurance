@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12681772083",
+    "project_id": "pal-insurance",
+    "storage_bucket": "pal-insurance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12681772083:android:b9214904ac26537095b746",
+        "android_client_info": {
+          "package_name": "africa.pal.flowinsurance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12681772083-otugacs1ven5orpgd28gnrmd71t6618d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXxcwOCSL2Wg_17qdgFhQ6lZX518_Op98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12681772083-otugacs1ven5orpgd28gnrmd71t6618d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

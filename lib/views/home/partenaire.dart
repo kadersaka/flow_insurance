@@ -23,7 +23,7 @@ class _PartenairePageState extends State<PartenairePage> {
       appBar: AppBar(
         leading: TextButton(onPressed: () => Navigator.pop(context), child: const Icon(Icons.arrow_back, color: Colors.black)),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,7 +34,8 @@ class _PartenairePageState extends State<PartenairePage> {
                   text: "Vous pouvez vous rendre chez l'un de vos partenaires pour l'achat de votre smartpone et beneficier d'une assurance",
                   style: TextStyle(color: Colors.black, fontSize: 10),
                 ),
-                maxLines: 5),
+                maxLines: 5,
+            ),
           ],
         ),
       ),

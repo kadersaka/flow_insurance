@@ -33,21 +33,6 @@ class _AccueilPageState extends State<AccueilPage> {
           SizedBox(
             height: size.height / 17,
           ),
-          // Stack(
-          //   clipBehavior: Clip.none,
-          //   children: [
-          //     Image.asset('assets/${ImageData.logo}'),
-          //     Positioned(
-          //       width: size.width,
-          //       bottom: 30,
-          //       child: Text(
-          //         StringData.appName,
-          //           style: const TextStyle(
-          //             fontWeight: FontWeight.bold,
-          //             fontSize: 25,
-          //           )),
-          //     ),
-          //   ],),
           Image.asset('assets/${ImageData.logo}'),
           Text(StringData.appName,
               style: const TextStyle(

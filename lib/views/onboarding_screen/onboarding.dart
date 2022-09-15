@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
+import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
+import 'package:flowinsurance/views/onboarding_screen/components/intermediaire.dart';
 import 'package:flowinsurance/views/onboarding_screen/components/pageviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -76,8 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ? controller.nextPage(
                           duration: const Duration(microseconds: 500),
                           curve: Curves.easeInOut)
-                      : Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const AccueilPage()));
+                      :  
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Intermediaire()));
                 },
                 child: Text(
                   (!isLastPage) ? "Next" : "Done",

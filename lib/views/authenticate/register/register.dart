@@ -118,6 +118,8 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+
+    
   }
 
   Widget inputWidget(
