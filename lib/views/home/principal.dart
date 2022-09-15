@@ -5,6 +5,7 @@ import 'package:flowinsurance/views/home/remboursement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class PrincipalPage extends StatefulWidget {
   const PrincipalPage({super.key});
 
@@ -14,7 +15,7 @@ class PrincipalPage extends StatefulWidget {
 
 class _PrincipalPageState extends State<PrincipalPage> {
   int pageIndex = 0;
-
+  
   final pages = [
     const HomeScreen(),
     const RemboursementPage(),
@@ -22,10 +23,11 @@ class _PrincipalPageState extends State<PrincipalPage> {
     const Profile(),
   ];
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[pageIndex],
+      body:  pages[pageIndex],
       bottomNavigationBar: Container(
         height: 60,
         decoration: const BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3, blurStyle: BlurStyle.outer)]),

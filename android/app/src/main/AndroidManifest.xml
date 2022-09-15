@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="africa.pal.flowinsurance">
+
+   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+   
    <application
         android:label="flowinsurance"
         android:name="${applicationName}"

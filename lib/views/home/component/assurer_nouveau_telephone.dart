@@ -1,6 +1,8 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
+import 'package:flowinsurance/views/home/component/souscrire_nouveau_telephone.dart';
 import 'package:flowinsurance/views/home/principal.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -55,136 +57,106 @@ class _AssurerNouveauTelephoneState extends State<AssurerNouveauTelephone> {
               padding: const EdgeInsets.all(8),
               child: const Text("Cet assurance est uniquement souscrivable sur les nouveaux telephones achetes aupres de vos partenaires "),
             ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Container(margin: const EdgeInsets.all(10), child: const Text("Suivez les etapes pour souscrire a cette Assurance ")),
+            Container(
+              // height: 70,
+              margin: const EdgeInsets.only(left: 8, top: 15, bottom: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomWidget().myText(sliderValue.toStringAsFixed(2), size: 70, isbols: true),
-                  CustomWidget().myText(StringData.devise, size: 40, isbols: true),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: Colors.black)),
+                    child: const Center(child: Text("1", style: TextStyle(color: Colors.black), textScaleFactor: 2)),
+                  ),
+                  Expanded(
+                      child: Container(
+                    margin: const EdgeInsets.only(left: 8, right: 8),
+                    child: const Text.rich(
+                        TextSpan(
+                            text: "Rendez vous chez l'un de nos partenaires pour l'achat de votre smarphone. ",
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            children: [TextSpan(text: "Voir la liste de nos partenaires", style: TextStyle(color: Color.fromARGB(255, 107, 217, 245), decoration: TextDecoration.underline))]),
+                        maxLines: 2),
+                  )),
                 ],
               ),
             ),
-            Center(
-              child: Slider(
-                activeColor: const Color(0xffFFD998),
-                inactiveColor: Colors.grey,
-                value: sliderValue,
-                min: 0.0,
-                max: 100,
-                onChanged: (value) {
-                  setState(() {
-                    sliderValue = value;
-                  });
-                },
+            Container(
+              // height: 70,
+              margin: const EdgeInsets.only(left: 8, top: 15, bottom: 15),
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: Colors.black)),
+                    child: const Center(child: Text("2", style: TextStyle(color: Colors.black), textScaleFactor: 2)),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 8, right: 8),
+                        child: LimitedBox(
+                          maxWidth: size.width - 70,
+                          child: const Expanded(
+                            child: Text(
+                              maxLines: 3,
+                              "Une fois le telephone achete, installez l'application Flow Assurance sur le smartphone et uploader le recu du fichier ",
+                              style: TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 8, right: 8),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.cloud_upload,
+                              color: Colors.green[700],
+                            ),
+                            const Text("  Uploader le fichier")
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: size.height / 8,
+            Container(
+              // height: 70,
+              margin: const EdgeInsets.only(left: 8, top: 15, bottom: 15),
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: Colors.black)),
+                    child: const Center(child: Text("3", style: TextStyle(color: Colors.black), textScaleFactor: 2)),
+                  ),
+                  Expanded(
+                      child: Container(
+                    margin: const EdgeInsets.only(left: 8, right: 8),
+                    child: const Text.rich(
+                        TextSpan(
+                          text: "Notre equipe verifiera le recu et vous donnera acces a la souscription de cette assurance ",
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                        maxLines: 2),
+                  )),
+                ],
+              ),
             ),
-            inputWidget(StringData.momo, controller, size),
-            //const Expanded(child: SizedBox.expand()),
-            SizedBox(
-              height: size.height / 8,
-            ),
-            Center(child: CustomWidget().mybutton(size, StringData.payer, () => _showMyDialog())),
+            Container(
+              margin: const EdgeInsets.only(left: 35, top: 50),
+              child: CustomWidget().mybutton(size, "Souscrire", () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SouscrireNouveauTelephone()))),
+            )
           ],
         ),
       )),
-    );
-  }
-
-  Widget inputWidget(String headText, TextEditingController controller, Size size) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: size.width * 0.08, bottom: 10),
-          child: Text(
-            headText,
-            textAlign: TextAlign.start,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          height: 43,
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.08,
-          ),
-          margin: const EdgeInsets.only(bottom: 14),
-          child: TextFormField(
-            obscureText: true,
-            autofocus: false,
-            decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-                // borderRadius: BorderRadius.all(Radius.circular(50)),
-              ),
-              errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-              //hintText: StringData.motDePasse,
-              contentPadding: EdgeInsets.all(20),
-              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-            ),
-            cursorColor: Colors.black,
-            controller: controller,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return StringData.motDePassePlease;
-              }
-              return null;
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        )
-      ],
-    );
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          //title: const Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Center(
-                  child: CustomWidget().myText(
-                    StringData.paiementRecu,
-                    isbols: true,
-                    size: 18,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 35.0),
-                  child: Text(
-                    StringData.activeSous,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                ElevatedButton(
-                    style: ButtonStyle1(MediaQuery.of(context).size.width * 0.5),
-                    // style: ButtonStyle1(size),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
-                    },
-                    child: Text(
-                      StringData.compris,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    )),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }
