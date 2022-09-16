@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/constants/styles.dart';
@@ -18,12 +19,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController optController = TextEditingController();
   TextEditingController numeroController = TextEditingController();
-  
+
   FirebaseAuth auth = FirebaseAuth.instance;
   bool otpVisibility = false;
   User? user;
   String verificationID = "";
-
 
   @override
   void initState() {
@@ -126,7 +126,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-
               Visibility(
                 visible: otpVisibility,
                 child: Column(
@@ -193,14 +192,13 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                     style: ButtonStyle1(size.width * 0.8),
                     onPressed: () {
+                      // if (otpVisibility) {
+                      //   verifyOTP();
+                      // } else {
+                      //   loginWithPhone();
+                      // }
 
-                        // if (otpVisibility) {
-                        //   verifyOTP();
-                        // } else {
-                        //   loginWithPhone();
-                        // }
-                      
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
                     },
                     child: Text(
                       otpVisibility ? "Verify" : "Login",
@@ -217,66 +215,76 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void loginWithPhone() async {
-    auth.verifyPhoneNumber(
-      phoneNumber: "+229" + numeroController.text ,
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential).then((value) {
-          print("You are logged in successfully");
-        });
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        print(e.message);
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        otpVisibility = true;
-        verificationID = verificationId;
-        setState(() {});
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
+  Future<void> verifiyAppUser() async {
+    final ref = FirebaseDatabase.instance.ref();
+    final snapshot = await ref.child("/${numeroController.text}").get();
+    if (snapshot.exists) {
+      print(snapshot.value);
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
+    } else {
+      Fluttertoast();
+    }
   }
+  // void loginWithPhone() async {
+  //   auth.verifyPhoneNumber(
+  //     phoneNumber: "+229" + numeroController.text ,
+  //     verificationCompleted: (PhoneAuthCredential credential) async {
+  //       await auth.signInWithCredential(credential).then((value) {
+  //         print("You are logged in successfully");
+  //       });
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //       print(e.message);
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) {
+  //       otpVisibility = true;
+  //       verificationID = verificationId;
+  //       setState(() {});
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {},
+  //   );
+  // }
 
-  void verifyOTP() async {
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationID, smsCode: optController.text);
+  // void verifyOTP() async {
+  //   PhoneAuthCredential credential = PhoneAuthProvider.credential(
+  //       verificationId: verificationID, smsCode: optController.text);
 
-    await auth.signInWithCredential(credential).then(
-      (value) {
-        setState(() {
-          user = FirebaseAuth.instance.currentUser;
-        });
-      },
-    ).whenComplete(
-      () {
-        if (user != null) {
-          Fluttertoast.showToast(
-            msg: "You are logged in successfully",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AccueilDiagnostic(),
-            ),
-          );
-        } else {
-          Fluttertoast.showToast(
-            msg: "your login is failed",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-        }
-      },
-    );
-  }
+  //   await auth.signInWithCredential(credential).then(
+  //     (value) {
+  //       setState(() {
+  //         user = FirebaseAuth.instance.currentUser;
+  //       });
+  //     },
+  //   ).whenComplete(
+  //     () {
+  //       if (user != null) {
+  //         Fluttertoast.showToast(
+  //           msg: "You are logged in successfully",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.BOTTOM,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.red,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0,
+  //         );
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => const AccueilDiagnostic(),
+  //           ),
+  //         );
+  //       } else {
+  //         Fluttertoast.showToast(
+  //           msg: "your login is failed",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.BOTTOM,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.red,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0,
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }

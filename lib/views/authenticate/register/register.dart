@@ -1,5 +1,6 @@
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
+import 'package:flowinsurance/models/user.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/authenticate/register/create_successful.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
@@ -22,11 +23,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
-    passwordController = TextEditingController();
-    numeroController = TextEditingController();
-    passwordConfirmController = TextEditingController();
-    nomController = TextEditingController();
-    prenomController = TextEditingController();
+    // passwordController = TextEditingController();
+    // numeroController = TextEditingController();
+    // passwordConfirmController = TextEditingController();
+    // nomController = TextEditingController();
+    // prenomController = TextEditingController();
 
     super.initState();
   }
@@ -55,8 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.all(5.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AccueilPage()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -89,25 +89,24 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Column(
                     children: [
                       inputWidget(StringData.votreNom, nomController, size),
-                      inputWidget(
-                          StringData.votrePrenom, prenomController, size),
-                      inputWidget(
-                          StringData.numTelephone, numeroController, size),
-                      inputWidget(
-                          StringData.motDePasse, passwordController, size),
-                      inputWidget(StringData.confirmerMotDePasse,
-                          passwordConfirmController, size),
+                      inputWidget(StringData.votrePrenom, prenomController, size),
+                      inputWidget(StringData.numTelephone, numeroController, size),
+                      inputWidget(StringData.motDePasse, passwordController, size),
+                      inputWidget(StringData.confirmerMotDePasse, passwordConfirmController, size),
                       const SizedBox(
                         height: 15,
                       ),
                       Center(
-                        child: CustomWidget().mybutton(
-                            size,
-                            StringData.continuer,
-                            () => Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const CreateSuccessfull()))),
-                      ),
+                          child: CustomWidget().mybutton(
+                        size,
+                        StringData.continuer,
+                        () {
+                          AppUser newUser = AppUser( nomController.text, prenomController.text, numeroController.text, passwordController.text);
+                          newUser.addToDataBase().then(
+                                (value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull())),
+                              );
+                        },
+                      )),
                       const SizedBox(
                         height: 15,
                       ),
@@ -118,12 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-
-    
   }
 
-  Widget inputWidget(
-      String headText, TextEditingController controller, Size size) {
+  Widget inputWidget(String headText, TextEditingController controller, Size size) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -146,20 +142,16 @@ class _RegisterPageState extends State<RegisterPage> {
             obscureText: true,
             autofocus: false,
             decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
                 // borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
-              errorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               //hintText: StringData.motDePasse,
               contentPadding: EdgeInsets.all(20),
-              focusedErrorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
             ),
             cursorColor: Colors.black,
             controller: controller,
