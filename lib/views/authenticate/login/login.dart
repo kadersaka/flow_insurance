@@ -84,9 +84,11 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: false,
+                  
                   autofocus: false,
                   decoration: InputDecoration(
+                    
                     prefixIcon: Container(
                       height: 27,
                       width: 29,
