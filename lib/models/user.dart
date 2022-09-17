@@ -8,9 +8,9 @@ class AppUser {
   late String phoneNumber;
   late String mdp;
 
-  AppUser( this.name, this.surname, this.phoneNumber, this.mdp);
+  AppUser(this.name, this.surname, this.phoneNumber, this.mdp);
   Future<void> addToDataBase() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
+    DatabaseReference ref = FirebaseDatabase.instance.ref("/user");
     await ref.set({
       phoneNumber: {
         "name": name,
