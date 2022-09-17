@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 
 class ScreenTestPage extends StatefulWidget {
-  const ScreenTestPage({Key? key}) : super(key: key);
+  // GestureTapCallback? fun;
+  final Function() fun;
+  ScreenTestPage({Key? key, required this.fun}) : super(key: key);
 
   @override
   State<ScreenTestPage> createState() => _ScreenTestPageState();
@@ -43,7 +45,10 @@ class _ScreenTestPageState extends State<ScreenTestPage> {
             // print("Counter a $counter");
           } while (forward && counter < listInt.length - 1);
           // print("*************************${listInt}");
-          if (forward) Navigator.pop(context);
+          if (forward) {
+            widget.fun();
+            Navigator.pop(context);
+          }
         },
         dragFeedback: (List<DraggableGridItem> list, int index) {
           return Container(

@@ -31,16 +31,16 @@ class StringData {
   static String phoneDiagn = "Phone Diagnostic";
   static String resulDiagnos = "Veuillez svp selectionner chaque options pour que notre system puis verifier l'etat de votre smartphone";
   static List<List<String>> essai = [
-    ["Camera", "phone.png"],
-    ["Ecran", "smart_screen.png"],
-    ["Micro", "micro.png"],
-    ["Haut Parleur", "speaker.png"],
-    ["SIM", "sim.png"],
-    ["Port ecoute", "new_micro.png"],
-    ["Flash", "istock.png"],
-    ["Ecran", "smart_screen.png"],
-    ["Wifi", "wifi.png"],
-    ["Bluetooth", "bluetooth.png"],
+    ["Camera", "phone.png", ""],
+    ["Ecran", "smart_screen.png", ""],
+    ["Micro", "micro.png", ""],
+    ["Haut Parleur", "speaker.png", ""],
+    ["SIM", "sim.png", ""],
+    ["Port ecoute", "new_micro.png", ""],
+    ["Flash", "istock.png", ""],
+    ["Ecran", "smart_screen.png", ""],
+    ["Wifi", "wifi.png", ""],
+    ["Bluetooth", "bluetooth.png", ""],
   ];
   static String terminerDiagnostic = "Diagnostic Terminer";
   static String resDiagnos = "Svp note que les test qui ont echoue ne seront pas couverte par l'assurance.";

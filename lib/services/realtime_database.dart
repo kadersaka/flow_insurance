@@ -2,6 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flowinsurance/models/user.dart';
 import 'package:prefs/prefs.dart';
 
+import '../constants/strings.dart';
+
 class DataBaseService {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
@@ -20,6 +22,7 @@ class DataBaseService {
     final ref = FirebaseDatabase.instance.ref();
     final snapshot = await ref.child("users/$phoneNumber").get();
     var json = snapshot.exists ? snapshot.value as Map<dynamic, dynamic> : {};
+
     if (snapshot.exists && json['mdp'] == mdp) {
       print(snapshot.value);
       setPreferences(phoneNumber, mdp);
@@ -29,9 +32,62 @@ class DataBaseService {
     }
   }
 
+  Future<void> getPhoneDetailsFromDatabase() async {
+    final ref = FirebaseDatabase.instance.ref();
+    Prefs.init();
+    String phoneNumber = Prefs.getString("PHONENUMBER", "");
+    final snapshot = await ref.child("users/$phoneNumber/phones/${StringData.myIme}").get();
+    var json = snapshot.exists ? snapshot.value as Map<dynamic, dynamic> : {};
+    if (snapshot.exists) {
+      StringData.essai[0][2] = json[StringData.essai[0][0]];
+      StringData.essai[1][2] = json[StringData.essai[1][0]];
+      StringData.essai[2][2] = json[StringData.essai[2][0]];
+      StringData.essai[3][2] = json[StringData.essai[3][0]];
+      StringData.essai[4][2] = json[StringData.essai[4][0]];
+      StringData.essai[5][2] = json[StringData.essai[5][0]];
+      StringData.essai[6][2] = json[StringData.essai[6][0]];
+      StringData.essai[7][2] = json[StringData.essai[7][0]];
+      StringData.essai[8][2] = json[StringData.essai[8][0]];
+      StringData.essai[9][2] = json[StringData.essai[9][0]];
+    }
+  }
+
+  Future<void> setPhoneDetailsToDatabase() async {
+    Prefs.init();
+    String phoneNumber = Prefs.getString("PHONENUMBER", "");
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/$phoneNumber/phones/${StringData.myIme}");
+    await ref.set({
+      StringData.essai[0][0]: StringData.essai[0][2],
+      StringData.essai[1][0]: StringData.essai[1][2],
+      StringData.essai[2][0]: StringData.essai[2][2],
+      StringData.essai[3][0]: StringData.essai[3][2],
+      StringData.essai[4][0]: StringData.essai[4][2],
+      StringData.essai[5][0]: StringData.essai[5][2],
+      StringData.essai[6][0]: StringData.essai[6][2],
+      StringData.essai[7][0]: StringData.essai[7][2],
+      StringData.essai[8][0]: StringData.essai[8][2],
+      StringData.essai[9][0]: StringData.essai[9][2],
+    });
+        // print("fait  ${StringData.essai[StringData.essai.indexOf(e)][2]}");
+
+    print("Phone details add to database");
+    print({
+      StringData.essai[0][0]: StringData.essai[0][2],
+      StringData.essai[1][0]: StringData.essai[1][2],
+      StringData.essai[2][0]: StringData.essai[2][2],
+      StringData.essai[3][0]: StringData.essai[3][2],
+      StringData.essai[4][0]: StringData.essai[4][2],
+      StringData.essai[5][0]: StringData.essai[5][2],
+      StringData.essai[6][0]: StringData.essai[6][2],
+      StringData.essai[7][0]: StringData.essai[7][2],
+      StringData.essai[8][0]: StringData.essai[8][2],
+      StringData.essai[9][0]: StringData.essai[9][2],
+    });
+  }
+
   void setPreferences(String numero, String mdp) {
     Prefs.init();
     Prefs.setString("PHONENUMBER", numero);
-    Prefs.setString("MDP", mdp); 
+    Prefs.setString("MDP", mdp);
   }
 }
