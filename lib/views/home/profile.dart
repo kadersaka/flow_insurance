@@ -1,9 +1,9 @@
 import 'package:flowinsurance/services/realtime_database.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flowinsurance/views/accueil/accueil.dart';
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:prefs/prefs.dart';
-import '../onboarding_screen/onboarding.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -106,11 +106,11 @@ class _ProfileState extends State<Profile> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Padding(padding: EdgeInsets.only(bottom: 4), child: Text("Nous contacter", style: TextStyle(color: Color.fromARGB(255, 129, 125, 125), fontSize: 13))),
-                const Text("96 06 05 22", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                const Text("96 06 05 22", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
                 const Divider(height: 20),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 4),
-                  child: Text("Lire nos termes et conditions", style: const TextStyle(color: Color.fromARGB(255, 129, 125, 125), fontSize: 13)),
+                  child: Text("Lire nos termes et conditions", style: TextStyle(color: Color.fromARGB(255, 129, 125, 125), fontSize: 13)),
                 ),
                 const Text("Terms et conditions  de flow assurance",
                     style: TextStyle(
@@ -122,7 +122,7 @@ class _ProfileState extends State<Profile> {
                 TextButton(
                   onPressed: () {
                     DataBaseService().setPreferences("", "");
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const OnboardingScreen()), (route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AccueilPage()), (route) => false);
                   },
                   child: Row(
                     children: const [
