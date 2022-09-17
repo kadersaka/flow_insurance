@@ -19,19 +19,19 @@ class _CameraTestState extends State<CameraTest> {
     );
   }
 
-  void pickImage() async {
-    ImagePicker imagePicker = ImagePicker();
-    XFile? image = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      pathOfImage = image!.path;
-    });
-  }
+  // void pickImage() async {
+  //   ImagePicker imagePicker = ImagePicker();
+  //   XFile? image = await imagePicker.pickImage(source: ImageSource.gallery);
+  //   setState(() {
+  //     pathOfImage = image!.path;
+  //   });
+  // }
 
-  void extractData(String imagePath) async {
-    final inputImage = InputImage.fromFilePath(imagePath);
-    List<Face> faces = await detector.processImage(inputImage);
-    setState(() {
-      detectedfaces=faces;
-    });
-  }
+  // void extractData(String imagePath) async {
+  //   final inputImage = InputImage.fromFilePath(imagePath);
+  //   List<Face> faces = await detector.processImage(inputImage);
+  //   setState(() {
+  //     detectedfaces=faces;
+  //   });
+  // }
 }
