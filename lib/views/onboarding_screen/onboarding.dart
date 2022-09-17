@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';

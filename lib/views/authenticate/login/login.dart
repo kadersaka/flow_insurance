@@ -4,6 +4,7 @@ import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/constants/styles.dart';
 import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
+import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
 import 'package:flutter/material.dart';
 import 'package:prefs/prefs.dart';
 
@@ -185,8 +186,8 @@ class _LoginPageState extends State<LoginPage> {
                     if (_formKey.currentState!.validate()) {
                       DataBaseService().login(numeroController.text, mdpController.text).then((value) {
                         if (value != null) {
-                          DataBaseService().setPreferences(numeroController.text, mdpController.text);
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AccueilPage()), (route) => false);
+                          // DataBaseService().setPreferences(numeroController.text, mdpController.text);
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AccueilDiagnostic()), (route) => false);
                         }
                       });
                     }

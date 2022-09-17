@@ -18,7 +18,9 @@ class DataBaseService {
 
   void createUser() {}
 
-  void logout() {}
+  void logout() {
+    
+  }
 
   Future<AppUser?> login(String phoneNumber, String mdp) async {
     final ref = FirebaseDatabase.instance.ref();

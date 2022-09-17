@@ -1,6 +1,9 @@
+import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:prefs/prefs.dart';
+import '../onboarding_screen/onboarding.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,6 +14,12 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool bool1 = false, bool2 = false;
+  @override
+  void initState() {
+    Prefs.init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +120,10 @@ class _ProfileState extends State<Profile> {
                     )),
                 const Divider(height: 20),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    DataBaseService().setPreferences("", "");
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const OnboardingScreen()), (route) => false);
+                  },
                   child: Row(
                     children: const [
                       Text("Me deconnecter", style: TextStyle(color: Colors.red)),
