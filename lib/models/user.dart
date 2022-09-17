@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flowinsurance/models/phone.dart';
 
 class AppUser {
   // late String id;
@@ -6,8 +6,8 @@ class AppUser {
   late String surname;
   // late String imageUrl;
   late String phoneNumber;
-  late String mdp; 
-
-  AppUser( this.name, this.surname, this.phoneNumber, this.mdp);
- 
+  late String mdp;
+  late List<PhoneInfos> mesPhone;
+  
+  AppUser(this.name, this.surname, this.phoneNumber, this.mdp);
 }
