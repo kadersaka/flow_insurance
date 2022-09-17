@@ -2,6 +2,7 @@ import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
 import 'package:flowinsurance/views/diagnostic/ScreenTestPage.dart';
 import 'package:flowinsurance/views/diagnostic/diagnostic_result.dart';
+import 'package:flowinsurance/views/diagnostic/test_page/micro_test.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:unique_identifier/unique_identifier.dart';
@@ -19,14 +20,14 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
 
   Future<void> _initInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    String? _imei = "";
+    String? imei = "";
     AndroidDeviceInfo andro = await deviceInfo.androidInfo;
-    _imei = await UniqueIdentifier.serial;
+    imei = await UniqueIdentifier.serial;
     setState(() {
       androidInfo = andro;
       StringData.infinix = androidInfo.board!;
       StringData.myModel = androidInfo.model!;
-      if (_imei != null) StringData.myIme = _imei;
+      if (imei != null) StringData.myIme = imei;
       loading = false;
       print('Running on ${androidInfo.model}');
     });
@@ -43,7 +44,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,74 +53,109 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                   height: 134,
                   width: double.infinity,
                   color: const Color.fromARGB(232, 242, 240, 183),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.phone_android),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.phone_android),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Text(
+                                StringData.votreTelephone,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8),
                           child: Text(
-                            StringData.votreTelephone,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            '${androidInfo.board}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Color(0xff185182),
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        '${androidInfo.board}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Color(0xff185182),
                         ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 3,
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: CustomWidget()
+                                    .myText(StringData.model, isbols: true)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: CustomWidget()
+                                    .myText(StringData.myModel, isbols: true)),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: CustomWidget()
+                                    .myText(StringData.imei, isbols: true)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: CustomWidget()
+                                    .myText(StringData.myIme, isbols: true)),
+                          ],
                         ),
-                        Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.model, isbols: true)),
-                        Padding(padding: const EdgeInsets.only(left: 8), child: CustomWidget().myText(StringData.myModel, isbols: true)),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Padding(padding: const EdgeInsets.all(8), child: CustomWidget().myText(StringData.imei, isbols: true)),
-                        Padding(padding: const EdgeInsets.only(left: 4), child: CustomWidget().myText(StringData.myIme, isbols: true)),
-                      ],
-                    ),
-                  ]),
+                      ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12),
-                  child: CustomWidget().myText(StringData.phoneDiagn, isbols: true, color: const Color(0xff185182), size: 30),
+                  child: CustomWidget().myText(StringData.phoneDiagn,
+                      isbols: true, color: const Color(0xff185182), size: 30),
                 ),
-                Padding(padding: const EdgeInsets.all(10), child: CustomWidget().myText(StringData.resulDiagnos, isbols: false, size: 15)),
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomWidget().myText(StringData.resulDiagnos,
+                        isbols: false, size: 15)),
                 Expanded(
                   child: GridView.builder(
                       itemCount: StringData.essai.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4),
                       itemBuilder: (context, i) {
                         return Column(
                           children: [
                             InkWell(
                               onTap: () {
                                 if (i == 1) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenTestPage()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ScreenTestPage()));
                                 }
+                                if (i == 2) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MicroTest()));
+                                }
+
                               },
                               child: Container(
                                 height: 70,
                                 width: 80,
-                                decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey, width: 0.5)),
                                 child: Image.asset(
                                   "assets/${StringData.essai[i][1]}",
                                   fit: BoxFit.cover,
@@ -127,12 +163,18 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                               ),
                             ),
                             const SizedBox(height: 3),
-                            CustomWidget().myText(StringData.essai[i][0], isbols: false),
+                            CustomWidget()
+                                .myText(StringData.essai[i][0], isbols: false),
                           ],
                         );
                       }),
                 ),
-                Center(child: CustomWidget().mybutton(size, StringData.continuer, () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DiagnosticResult()))))
+                Center(
+                    child: CustomWidget().mybutton(
+                        size,
+                        StringData.continuer,
+                        () => Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const DiagnosticResult()))))
               ],
             )),
     );

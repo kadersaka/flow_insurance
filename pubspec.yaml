@@ -37,6 +37,7 @@ dependencies:
   fluttertoast: ^8.0.9
   firebase_database: ^9.1.4
   prefs: ^3.5.0
+  speech_to_text: ^5.6.1
   
 
 dev_dependencies:
