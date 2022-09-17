@@ -38,7 +38,6 @@ class StringData {
     ["SIM", "sim.png"],
     ["Port ecoute", "new_micro.png"],
     ["Flash", "istock.png"],
-    ["Ecran", "smart_screen.png"],
     ["Wifi", "wifi.png"],
     ["Bluetooth", "bluetooth.png"],
   ];
