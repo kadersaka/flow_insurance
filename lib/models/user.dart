@@ -6,7 +6,7 @@ class AppUser {
   late String surname;
   // late String imageUrl;
   late String phoneNumber;
-  late String mdp;
+  late String mdp; 
 
   AppUser( this.name, this.surname, this.phoneNumber, this.mdp);
  
