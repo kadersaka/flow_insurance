@@ -16,10 +16,6 @@ class DataBaseService {
     setPreferences(user.phoneNumber, user.mdp);
   }
 
-  void createUser() {}
-
-  void logout() {}
-
   Future<AppUser?> login(String phoneNumber, String mdp) async {
     final ref = FirebaseDatabase.instance.ref();
     final snapshot = await ref.child("users/$phoneNumber").get();

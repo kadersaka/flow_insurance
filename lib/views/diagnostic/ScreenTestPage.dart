@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reorderable_grid_view/entities/order_update_entity.dart';
-import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 
 class ScreenTestPage extends StatefulWidget {
   const ScreenTestPage({Key? key}) : super(key: key);
@@ -11,111 +9,78 @@ class ScreenTestPage extends StatefulWidget {
 }
 
 class _ScreenTestPageState extends State<ScreenTestPage> {
-  List<int> children = List.generate(12, (index) => index + 1);
-  // var _scrollController = ScrollController();
-  final _gridViewKey = GlobalKey();
+  List<int> listInt = List.generate(12, (index) => index + 1);
   @override
   void initState() {
-    children.shuffle();
+    listInt.shuffle();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    void _handleDragStarted() {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      const snackBar = SnackBar(
-        content: Text('Dragging has started!'),
-        duration: Duration(milliseconds: 1000),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
-    void _handleDragEnd() {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      const snackBar = SnackBar(
-        content: Text('Dragging was finished!'),
-        duration: Duration(milliseconds: 1000),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      if(children == [1,2,3,4,5,6,7,8,9,10,11,12]){
-        Fluttertoast.showToast(
-            msg: "Vous avez réussi le test avec succès !!!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-      }
-
-    }
-
-    void _handleReorder(List<OrderUpdateEntity> onReorderList) {
-      for (final reorder in onReorderList) {
-        final child = children.removeAt(reorder.oldIndex);
-        children.insert(reorder.newIndex, child);
-      }
-      setState(() {
-      });
-    }
-
-    Widget _getReorderableWidget() {
-
-      final generatedChildren = List<Widget>.generate(
-        children.length,
-        (index) => Container(
-          key: Key(index.toString()),
-          decoration:
-              const BoxDecoration(color: Color.fromARGB(255, 88, 54, 54)),
-          // height: MediaQuery.of(context).size.height / 3,
-          // width: MediaQuery.of(context).size.width / 3,
-          child: Center(
-            child: Text(
-              '${children[index]}',
-              style: const TextStyle(fontSize: 30),
-            ),
-          ),
+    var _listOfDraggableGridItem = List.generate(12, (e) => DraggableGridItem(isDraggable: true, child: dragableContainer(key: Key(listInt[e].toString()))));
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white),
+      body: DraggableGridViewBuilder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          crossAxisCount: 3,
+          childAspectRatio: 3 / 4.1,
         ),
-      );
-
-      return ReorderableBuilder(
-        onReorder: _handleReorder,
-        onDragStarted: _handleDragStarted,
-        onDragEnd: _handleDragEnd,
-        // scrollController: _scrollController,
-        builder: (children) {
-          return GridView.builder(
-            key: _gridViewKey,
-            // controller: _scrollController,
-            itemCount: children.length,
-            itemBuilder: (context, index) {
-              return children[index];
-            },
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-              crossAxisCount: 3,
-              childAspectRatio: 3 / 4.25,
+        children: _listOfDraggableGridItem,
+        isOnlyLongPress: true,
+        dragCompletion: (List<DraggableGridItem> list, int beforeIndex, int afterIndex) {
+          print('onDragAccept: $beforeIndex -> $afterIndex');
+          for (int i = 0; i < list.length; i++) {
+            listInt[i] = int.parse(list[i].child.key.toString().substring(3, list[i].child.key.toString().length - 3));
+          }
+          bool forward = true;
+          int counter = 0;
+          do {
+            if (listInt[counter + 1] != listInt[counter] + 1) forward = false;
+            counter++;
+            // print("Counter a $counter");
+          } while (forward && counter < listInt.length - 1);
+          // print("*************************${listInt}");
+          if (forward) Navigator.pop(context);
+        },
+        dragFeedback: (List<DraggableGridItem> list, int index) {
+          return Container(
+            width: 200,
+            height: 150,
+            color: Colors.black,
+            child: list[index].child,
+          );
+        },
+        addSemanticIndexes: true,
+        addAutomaticKeepAlives: true,
+        dragPlaceHolder: (List<DraggableGridItem> list, int index) {
+          return PlaceHolderWidget(
+            child: Container(
+              color: Colors.blue,
             ),
           );
         },
-        children: generatedChildren,
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white70,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: Expanded(child: _getReorderableWidget()),
+    );
+  }
+}
+
+class dragableContainer extends StatelessWidget {
+  const dragableContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: key,
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 88, 54, 54)),
+      // height: MediaQuery.of(context).size.height / 3,
+      // width: MediaQuery.of(context).size.width / 3,
+      child: Center(
+        child: Text(
+          key.toString().substring(3, key.toString().length - 3),
+          style: const TextStyle(fontSize: 30),
         ),
       ),
     );

@@ -1,10 +1,12 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
-import 'package:flowinsurance/views/diagnostic/ScreenTestPage.dart';
+
 import 'package:flowinsurance/views/diagnostic/diagnostic_result.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:unique_identifier/unique_identifier.dart';
+
+import 'ScreenTestPage.dart';
 
 class AccueilDiagnostic extends StatefulWidget {
   const AccueilDiagnostic({super.key});
@@ -43,7 +45,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +115,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                             InkWell(
                               onTap: () {
                                 if (i == 1) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenTestPage()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ScreenTestPage()));
                                 }
                               },
                               child: Container(
