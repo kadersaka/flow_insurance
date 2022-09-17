@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/constants/styles.dart';
+import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/authenticate/register/create_successful.dart';
 import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
@@ -17,25 +18,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController optController = TextEditingController();
+  TextEditingController mdpController = TextEditingController();
   TextEditingController numeroController = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool otpVisibility = false;
+  // bool otpVisibility = false;
   User? user;
   String verificationID = "";
 
-  @override
-  void initState() {
-    optController = TextEditingController();
-    numeroController = TextEditingController();
+  // @override
+  // void initState() {
+  //   mdpController = TextEditingController();
+  //   numeroController = TextEditingController();
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
-    optController.dispose();
+    mdpController.dispose();
     numeroController.dispose();
     super.dispose();
   }
@@ -85,10 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
                 child: TextFormField(
                   obscureText: false,
-                  
                   autofocus: false,
                   decoration: InputDecoration(
-                    
                     prefixIcon: Container(
                       height: 27,
                       width: 29,
@@ -128,49 +127,46 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-              Visibility(
-                visible: otpVisibility,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: size.width * 0.08, bottom: 15),
-                      child: Text(
-                        StringData.motDePasse,
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: size.width * 0.08, bottom: 15),
+                    child: Text(
+                      StringData.motDePasse,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        fontSize: 14,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
-                      child: TextFormField(
-                        obscureText: true,
-                        autofocus: false,
-                        decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                            // borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
-                          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-                          //hintText: StringData.motDePasse,
-                          contentPadding: EdgeInsets.all(20),
-                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                    child: TextFormField(
+                      obscureText: true,
+                      autofocus: false,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                          // borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
-                        cursorColor: Colors.black,
-                        controller: optController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return StringData.motDePassePlease;
-                          }
-                          return null;
-                        },
+                        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                        //hintText: StringData.motDePasse,
+                        contentPadding: EdgeInsets.all(20),
+                        focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                       ),
+                      cursorColor: Colors.black,
+                      controller: mdpController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return StringData.motDePassePlease;
+                        }
+                        return null;
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Container(
                 padding: const EdgeInsets.only(top: 10, right: 10.0),
@@ -199,12 +195,21 @@ class _LoginPageState extends State<LoginPage> {
                       // } else {
                       //   loginWithPhone();
                       // }
+                      // verifiyAppUser();
 
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
+                      DataBaseService()
+                          .login(
+                        numeroController.text,
+                        mdpController.text,
+                      )
+                          .then((value) {
+                        
+                      });
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
                     },
-                    child: Text(
-                      otpVisibility ? "Verify" : "Login",
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )),
               ),
               const SizedBox(
@@ -217,16 +222,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> verifiyAppUser() async {
-    final ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child("/${numeroController.text}").get();
-    if (snapshot.exists) {
-      print(snapshot.value);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
-    } else {
-      Fluttertoast();
-    }
-  }
   // void loginWithPhone() async {
   //   auth.verifyPhoneNumber(
   //     phoneNumber: "+229" + numeroController.text ,

@@ -9,15 +9,5 @@ class AppUser {
   late String mdp;
 
   AppUser( this.name, this.surname, this.phoneNumber, this.mdp);
-  Future<void> addToDataBase() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    await ref.set({
-      phoneNumber: {
-        "name": name,
-        "surname": surname,
-        "phoneNumber": phoneNumber,
-        "mdp": mdp,
-      }
-    });
-  }
+ 
 }

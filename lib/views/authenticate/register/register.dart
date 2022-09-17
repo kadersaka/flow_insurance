@@ -1,6 +1,7 @@
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/models/user.dart';
+import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/authenticate/register/create_successful.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
@@ -101,8 +102,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         size,
                         StringData.continuer,
                         () {
-                          AppUser newUser = AppUser( nomController.text, prenomController.text, numeroController.text, passwordController.text);
-                          newUser.addToDataBase().then(
+                          AppUser newUser = AppUser(nomController.text, prenomController.text, numeroController.text, passwordController.text);
+                          DataBaseService().addToDataBase(newUser).then(
                                 (value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull())),
                               );
                         },

@@ -1,20 +1,36 @@
 import 'package:firebase_database/firebase_database.dart';
-class Servive{
-FirebaseDatabase database = FirebaseDatabase.instance;
-DatabaseReference ref = FirebaseDatabase.instance.ref();
+import 'package:flowinsurance/models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void createUser() {}
-void login() {
-  // ref.once().then((DataSnapshot snapshot) {});
-}
+class DataBaseService {
+  FirebaseDatabase database = FirebaseDatabase.instance;
 
-void logout() {}
-Future<void> allUsers() async {
-  final snapshot = await ref.child('1').get();
-  if (snapshot.exists) {
-    print(snapshot.value);
-  } else {
-    print('No data available.');
+  Future<void> addToDataBase(AppUser user) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref();
+    await ref.set({
+      user.phoneNumber: {
+        "name": user.name,
+        "surname": user.surname,
+        "phoneNumber": user.phoneNumber,
+        "mdp": user.mdp,
+      }
+    });
   }
-}
+
+  void createUser() {}
+
+  void logout() {}
+
+  Future<AppUser?> login(String phoneNumber, String mdp) async {
+    final ref = FirebaseDatabase.instance.ref();
+    final snapshot = await ref.child("/$phoneNumber").get();
+    var json = snapshot.exists ? snapshot.value as Map<dynamic, dynamic> : {};
+    if (snapshot.exists && json['mdp'] == mdp) {
+      print(snapshot.value);
+      return AppUser(json['name'], json['surname'], json['phoneNumber'], json['mdp']);
+    } else {
+      return null;
+    }
+  }
 }
