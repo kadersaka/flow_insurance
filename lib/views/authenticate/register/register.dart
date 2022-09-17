@@ -6,6 +6,7 @@ import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/authenticate/register/create_successful.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -103,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: CustomWidget().mybutton(
                         size,
                         StringData.continuer,
-                        () {
+                        () async {
                           if (_formKey.currentState!.validate()) {
                             if (passwordController.text == passwordConfirmController.text) {
                               setState(() {
@@ -114,11 +115,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                 isVisible = false;
                               });
 
-                              DataBaseService().addToDataBase(newUser).then((value) {
+                              await DataBaseService()
+                                  .addToDataBase(newUser)
+                                  .then((value) {
                                 setState(() {
                                   isLoading = false;
                                 });
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull()));
+                                _showToast();
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CreateSuccessfull()));
                               });
                             } else {
                               setState(() {
@@ -132,7 +138,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : CustomWidget().myText(StringData.continuer, size: 16, isbols: true, color: Colors.white),
+                            : CustomWidget().myText(StringData.continuer,
+                                size: 16, isbols: true, color: Colors.white),
                       )),
                       const SizedBox(
                         height: 15,
@@ -146,8 +153,23 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget inputWidget(String headText, TextEditingController controller, Size size,
-      {bool isObscure = false, TextInputType type = TextInputType.text, String errorText = "Veuillez remplir ce champ !"}) {
+  Future<void> _showToast() async {
+    Fluttertoast.showToast(
+      msg: "Vous compte est créé avec succès !!!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blue,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  Widget inputWidget(
+      String headText, TextEditingController controller, Size size,
+      {bool isObscure = false,
+      TextInputType type = TextInputType.text,
+      String errorText = "Veuillez remplir ce champ !"}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
