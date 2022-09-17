@@ -107,24 +107,17 @@ class _RegisterPageState extends State<RegisterPage> {
                         () async {
                           if (_formKey.currentState!.validate()) {
                             if (passwordController.text == passwordConfirmController.text) {
+                               AppUser newUser = AppUser(nomController.text, prenomController.text, numeroController.text, passwordController.text);
                               setState(() {
                                 isLoading = true;
-                              });
-                              AppUser newUser = AppUser(nomController.text, prenomController.text, numeroController.text, passwordController.text);
-                              setState(() {
                                 isVisible = false;
                               });
-
-                              await DataBaseService()
-                                  .addToDataBase(newUser)
-                                  .then((value) {
+                              await DataBaseService().addToDataBase(newUser).then((value) {
                                 setState(() {
                                   isLoading = false;
                                 });
                                 _showToast();
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CreateSuccessfull()));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull()));
                               });
                             } else {
                               setState(() {
@@ -138,8 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : CustomWidget().myText(StringData.continuer,
-                                size: 16, isbols: true, color: Colors.white),
+                            : CustomWidget().myText(StringData.continuer, size: 16, isbols: true, color: Colors.white),
                       )),
                       const SizedBox(
                         height: 15,
@@ -165,11 +157,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget inputWidget(
-      String headText, TextEditingController controller, Size size,
-      {bool isObscure = false,
-      TextInputType type = TextInputType.text,
-      String errorText = "Veuillez remplir ce champ !"}) {
+  Widget inputWidget(String headText, TextEditingController controller, Size size,
+      {bool isObscure = false, TextInputType type = TextInputType.text, String errorText = "Veuillez remplir ce champ !"}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,

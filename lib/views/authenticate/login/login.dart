@@ -186,24 +186,15 @@ class _LoginPageState extends State<LoginPage> {
                   style: ButtonStyle1(size.width * 0.8),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      DataBaseService().login(numeroController.text, mdpController.text).then((value) {
-                        if (value != null) {
-                          // DataBaseService().setPreferences(numeroController.text, mdpController.text);
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AccueilDiagnostic()), (route) => false);
-                        }
-                      });
-                    
                       setState(() {
                         isLoading = true;
                       });
-                      await DataBaseService()
-                          .login(numeroController.text, mdpController.text)
-                          .then((value) {
+                      await DataBaseService().login(numeroController.text, mdpController.text).then((value) {
                         if (value is AppUser) {
                           _showToast("Vous êtes connecté avec succès !!!");
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
                         } else {
-                          _showToast(
-                              "Connection echouée. \n Veuillez verifier votre mot de passe");
+                          _showToast("Connection echouée. \n Veuillez verifier votre mot de passe");
                         }
                       });
                     }
