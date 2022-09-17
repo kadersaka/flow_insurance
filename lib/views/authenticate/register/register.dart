@@ -52,8 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.all(5.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AccueilPage()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -85,31 +84,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      inputWidget(StringData.votreNom, nomController, size,
-                          errorText: StringData.errorTextNom),
-                      inputWidget(
-                          StringData.votrePrenom, prenomController, size,
-                          errorText: StringData.errorTextPrenom),
-                      inputWidget(
-                          StringData.numTelephone, numeroController, size,
-                          errorText: StringData.errorTextnum,
-                          type: TextInputType.phone),
-                      inputWidget(
-                          StringData.motDePasse, passwordController, size,
-                          isObscure: true,
-                          errorText: StringData.errorTextpassword),
-                      inputWidget(StringData.confirmerMotDePasse,
-                          passwordConfirmController, size,
-                          isObscure: true),
+                      inputWidget(StringData.votreNom, nomController, size, errorText: StringData.errorTextNom),
+                      inputWidget(StringData.votrePrenom, prenomController, size, errorText: StringData.errorTextPrenom),
+                      inputWidget(StringData.numTelephone, numeroController, size, errorText: StringData.errorTextnum, type: TextInputType.phone),
+                      inputWidget(StringData.motDePasse, passwordController, size, isObscure: true, errorText: StringData.errorTextpassword),
+                      inputWidget(StringData.confirmerMotDePasse, passwordConfirmController, size, isObscure: true),
                       Visibility(
                         visible: isVisible,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.08, bottom: 10),
-                          child: CustomWidget().myText(
-                              "Mot de passe non conforme !",
-                              color: Colors.red,
-                              size: 14),
+                          padding: EdgeInsets.only(left: size.width * 0.08, bottom: 10),
+                          child: CustomWidget().myText("Mot de passe non conforme !", color: Colors.red, size: 14),
                         ),
                       ),
                       const SizedBox(
@@ -121,28 +105,20 @@ class _RegisterPageState extends State<RegisterPage> {
                         StringData.continuer,
                         () {
                           if (_formKey.currentState!.validate()) {
-                            if (passwordController.text ==
-                                passwordConfirmController.text) {
+                            if (passwordController.text == passwordConfirmController.text) {
                               setState(() {
                                 isLoading = true;
                               });
-                              AppUser newUser = AppUser(
-                                  nomController.text,
-                                  prenomController.text,
-                                  numeroController.text,
-                                  passwordController.text);
+                              AppUser newUser = AppUser(nomController.text, prenomController.text, numeroController.text, passwordController.text);
                               setState(() {
-                                isVisible = false ;
+                                isVisible = false;
                               });
 
-                              newUser.addToDataBase().then((value) {
+                              DataBaseService().addToDataBase(newUser).then((value) {
                                 setState(() {
                                   isLoading = false;
                                 });
-
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CreateSuccessfull()));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateSuccessfull()));
                               });
                             } else {
                               setState(() {
@@ -153,9 +129,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         withLoading: true,
                         child: isLoading
-                            ? const CircularProgressIndicator(color: Colors.white,)
-                            : CustomWidget().myText(StringData.continuer,
-                                size: 16, isbols: true, color: Colors.white),
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : CustomWidget().myText(StringData.continuer, size: 16, isbols: true, color: Colors.white),
                       )),
                       const SizedBox(
                         height: 15,
@@ -169,11 +146,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget inputWidget(
-      String headText, TextEditingController controller, Size size,
-      {bool isObscure = false,
-      TextInputType type = TextInputType.text,
-      String errorText = "Veuillez remplir ce champ !"}) {
+  Widget inputWidget(String headText, TextEditingController controller, Size size,
+      {bool isObscure = false, TextInputType type = TextInputType.text, String errorText = "Veuillez remplir ce champ !"}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -197,20 +171,16 @@ class _RegisterPageState extends State<RegisterPage> {
             obscureText: isObscure,
             autofocus: false,
             decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
                 // borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
-              errorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+              errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
               //hintText: StringData.motDePasse,
               contentPadding: EdgeInsets.all(20),
-              focusedErrorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
             ),
             cursorColor: Colors.black,
             controller: controller,

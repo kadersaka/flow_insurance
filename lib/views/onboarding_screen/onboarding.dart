@@ -3,9 +3,9 @@ import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
-import 'package:flowinsurance/views/onboarding_screen/components/intermediaire.dart';
 import 'package:flowinsurance/views/onboarding_screen/components/pageviewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:prefs/prefs.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -17,6 +17,11 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final controller = PageController();
+  @override
+  void initState() {
+    Prefs.init();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -38,12 +43,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             });
           },
           children: [
-            PageViewModels(
-                imageUrl: ImageData.group1, text: StringData.groupe1),
-            PageViewModels(
-                imageUrl: ImageData.group4, text: StringData.groupe2),
-            PageViewModels(
-                imageUrl: ImageData.group6, text: StringData.groupe3),
+            PageViewModels(imageUrl: ImageData.group1, text: StringData.groupe1),
+            PageViewModels(imageUrl: ImageData.group4, text: StringData.groupe2),
+            PageViewModels(imageUrl: ImageData.group6, text: StringData.groupe3),
           ],
         ),
       ),
@@ -57,8 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onPressed: () {
                   controller.jumpTo(0);
                 },
-                child:
-                    const Text("Skip", style: TextStyle(color: Colors.black))),
+                child: const Text("Skip", style: TextStyle(color: Colors.black))),
             Center(
               child: SmoothPageIndicator(
                 controller: controller,
@@ -68,20 +69,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   dotColor: Color.fromARGB(255, 154, 203, 243),
                   activeDotColor: Colors.blue,
                 ),
-                onDotClicked: (index) => controller.animateToPage(index,
-                    duration: const Duration(microseconds: 500),
-                    curve: Curves.easeIn),
+                onDotClicked: (index) => controller.animateToPage(index, duration: const Duration(microseconds: 500), curve: Curves.easeIn),
               ),
             ),
             TextButton(
                 onPressed: () {
-                  (!isLastPage)
-                      ? controller.nextPage(
-                          duration: const Duration(microseconds: 500),
-                          curve: Curves.easeInOut)
-                      :  
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Intermediaire()));
+                  if (!isLastPage) {
+                    controller.nextPage(duration: const Duration(microseconds: 500), curve: Curves.easeInOut);
+                  } else {
+                    String numero = Prefs.getString("PHONENUMBER", "");
+                    String mdp = Prefs.getString("MDP", "");
+                    if (numero != "" && mdp != "") {
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
+                    } else {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
+                    }
+                  }
                 },
                 child: Text(
                   (!isLastPage) ? "Next" : "Done",

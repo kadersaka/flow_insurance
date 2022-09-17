@@ -5,6 +5,7 @@ import 'package:flowinsurance/constants/styles.dart';
 import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flutter/material.dart';
+import 'package:prefs/prefs.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,24 +15,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController optController = TextEditingController();
+  TextEditingController mdpController = TextEditingController();
   TextEditingController numeroController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  @override
-  void initState() {
-    optController = TextEditingController();
-    numeroController = TextEditingController();
-
-    super.initState();
-  }
-
+  // FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void dispose() {
-    optController.dispose();
+    mdpController.dispose();
     numeroController.dispose();
     super.dispose();
   }
@@ -50,8 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AccueilPage()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -74,8 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 0.08, bottom: 15),
+                      padding: EdgeInsets.only(left: size.width * 0.08, bottom: 15),
                       child: Text(
                         StringData.numDeTelephone,
                         textAlign: TextAlign.start,
@@ -85,8 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
                       child: TextFormField(
                         keyboardType: TextInputType.phone,
                         obscureText: false,
@@ -107,20 +96,16 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           //labelText: StringData.numDeTelephone,
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
+                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                           border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             // borderRadius: BorderRadius.all(Radius.circular(50)),
                           ),
-                          errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
-                          hintText: "96058266",
+                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                          hintText: "Numero de telephone",
                           contentPadding: const EdgeInsets.all(20),
-                          focusedErrorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
+                          focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                         ),
                         cursorColor: Colors.black,
                         controller: numeroController,
@@ -136,8 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 0.08, bottom: 15),
+                      padding: EdgeInsets.only(left: size.width * 0.08, bottom: 15),
                       child: Text(
                         StringData.motDePasse,
                         textAlign: TextAlign.start,
@@ -147,29 +131,24 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
                       child: TextFormField(
                         obscureText: true,
                         autofocus: false,
                         decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                             // borderRadius: BorderRadius.all(Radius.circular(50)),
                           ),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
+                          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                           //hintText: StringData.motDePasse,
                           contentPadding: EdgeInsets.all(20),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
+                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                         ),
                         cursorColor: Colors.black,
-                        controller: optController,
+                        controller: mdpController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return StringData.motDePassePlease;
@@ -203,13 +182,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   style: ButtonStyle1(size.width * 0.8),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      DataBaseService().login(numeroController.text, mdpController.text).then((value) {
+                        if (value != null) {
+                          DataBaseService().setPreferences(numeroController.text, mdpController.text);
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AccueilPage()), (route) => false);
+                        }
+                      });
+                    }
                   },
                   child: !isLoading
                       ? Text(
                           StringData.seConnecter,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         )
                       : const CircularProgressIndicator(
                           color: Colors.white,
