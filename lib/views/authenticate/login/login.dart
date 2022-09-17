@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                           //hintText: StringData.motDePasse,
                           contentPadding: EdgeInsets.all(20),
-                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                         ),
                         cursorColor: Colors.black,
                         controller: mdpController,
