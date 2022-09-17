@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/constants/styles.dart';
+import 'package:flowinsurance/models/user.dart';
 import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/accueil/accueil.dart';
 import 'package:flowinsurance/views/diagnostic/debut_diagnostic.dart';
 import 'package:flutter/material.dart';
 import 'package:prefs/prefs.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -182,12 +184,26 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: ElevatedButton(
                   style: ButtonStyle1(size.width * 0.8),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       DataBaseService().login(numeroController.text, mdpController.text).then((value) {
                         if (value != null) {
                           // DataBaseService().setPreferences(numeroController.text, mdpController.text);
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AccueilDiagnostic()), (route) => false);
+                        }
+                      });
+                    
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await DataBaseService()
+                          .login(numeroController.text, mdpController.text)
+                          .then((value) {
+                        if (value is AppUser) {
+                          _showToast("Vous êtes connecté avec succès !!!");
+                        } else {
+                          _showToast(
+                              "Connection echouée. \n Veuillez verifier votre mot de passe");
                         }
                       });
                     }
@@ -212,15 +228,15 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Future<void> verifiyAppUser() async {
-  //   final ref = FirebaseDatabase.instance.ref();
-  //   final snapshot = await ref.child("/${numeroController.text}").get();
-  //   if (snapshot.exists) {
-  //     print(snapshot.value);
-  //     Navigator.of(context).push(
-  //         MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
-  //   } else {
-  //     Fluttertoast();
-  //   }
-  // }
+  Future<void> _showToast(String text) async {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blue,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
 }

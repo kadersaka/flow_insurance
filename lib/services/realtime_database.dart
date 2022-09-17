@@ -6,7 +6,9 @@ class DataBaseService {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
   Future<void> addToDataBase(AppUser user) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user.phoneNumber}");
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/${user.phoneNumber}");
+>>>>>>> a0ab97e (maj)
     await ref.set({
       "name": user.name,
       "surname": user.surname,
