@@ -20,8 +20,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController nomController = TextEditingController();
   TextEditingController prenomController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool isVisible = false;
   bool isLoading = false;
+  bool isVisible = false;
   @override
   void initState() {
     super.initState();
@@ -131,7 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   numeroController.text,
                                   passwordController.text);
                               setState(() {
-                                isVisible = false;
+                                isVisible = false ;
                               });
 
                               newUser.addToDataBase().then((value) {
