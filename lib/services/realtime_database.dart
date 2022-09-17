@@ -32,6 +32,6 @@ class DataBaseService {
   void setPreferences(String numero, String mdp) {
     Prefs.init();
     Prefs.setString("PHONENUMBER", numero);
-    Prefs.setString("MDP", mdp);
+    Prefs.setString("MDP", mdp); 
   }
 }
