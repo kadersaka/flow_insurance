@@ -73,11 +73,11 @@ class StringData {
   static String compris = "Compris";
   static String partenaires = "Nos partenaires";
   static String rendezVous = "Vous pouvez vous rendre chez l'un de nos partenaires pour l'achat de votre smartphone et beneficier d'une assurance.";
-  // static String infinix = "";
-  // static String infinix = "";
-  // static String infinix = "";
-  // static String infinix = "";
-  // static String infinix = "";
+  static String errorTextNom = "Veuillez entrer votre nom";
+  static String errorTextPrenom = "Veuillez entrer votre Prénom";
+  static String errorTextnum = "Veuillez entrer votre numero";
+  static String errorTextpassword = "Veuillez entrer votre mot de passe";
+  // static String errorTextNom = "";
   // static String infinix = "";
   // static String infinix = "";
   // static String infinix = "";

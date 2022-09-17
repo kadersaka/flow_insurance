@@ -39,17 +39,18 @@ class _ScreenTestPageState extends State<ScreenTestPage> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      if (children == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) {
+      if(children == [1,2,3,4,5,6,7,8,9,10,11,12]){
         Fluttertoast.showToast(
-          msg: "Vous avez réussi le test avec succès !!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
+            msg: "Vous avez réussi le test avec succès !!!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
       }
+
     }
 
     void _handleReorder(List<OrderUpdateEntity> onReorderList) {
@@ -57,10 +58,12 @@ class _ScreenTestPageState extends State<ScreenTestPage> {
         final child = children.removeAt(reorder.oldIndex);
         children.insert(reorder.newIndex, child);
       }
-      setState(() {});
+      setState(() {
+      });
     }
 
     Widget _getReorderableWidget() {
+
       final generatedChildren = List<Widget>.generate(
         children.length,
         (index) => Container(
