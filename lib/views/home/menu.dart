@@ -18,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late File? imageFile;
+  bool ecranBriseActive = false;
+  String prix = "0";
   @override
   void initState() {
     imageFile = null;
@@ -41,19 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(
                   children: [
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    const SizedBox(height: 8),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.phone_android),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        StringData.votreTelephone,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      child: Text(StringData.votreTelephone, style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     const Expanded(child: SizedBox()),
                     InkWell(
@@ -115,9 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ]),
             ),
           ),
-          const SizedBox(
-            height: 24,
-          ),
+          const SizedBox(height: 24),
           Row(
             children: [
               Container(
@@ -126,7 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 // width: 200,
                 color: const Color(0xffEEF7FF),
                 child: InkWell(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AssurerEcranBrise())), //DetailEcranBrise
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AssurerEcranBrise(
+                            fun: setEcranBriseActive,
+                          ))), //DetailEcranBrise
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -147,42 +145,50 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               CustomWidget().myText(StringData.ecranBrise, size: 13, isbols: true),
                               Column(
-                                children: const [
-                                  Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25),
-                                  SizedBox(height: 20),
+                                children: [
+                                  Visibility(visible: ecranBriseActive, child: Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25)),
+                                  const SizedBox(height: 20),
                                 ],
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 18, left: 10, bottom: 5),
-                                    child: CustomWidget().myText(StringData.prix, isbols: true, size: 12),
-                                  ),
-                                  Container(
-                                    height: 15,
-                                    width: 120,
-                                    margin: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: const Color(0xff00FFC2)),
-                                    child: CustomWidget().myText(StringData.assurancePris, size: 10, color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              const Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
-                            ],
+                          SizedBox(
+                            // height: 60,
+                            width: ecranBriseActive ? 166 : 160,
+                            child: Row(
+                              children: [
+                                ecranBriseActive
+                                    ? Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 18, left: 10, bottom: 5),
+                                            child: CustomWidget().myText("$prix FCFA / 3 mois", isbols: true, size: 12),
+                                          ),
+                                          Container(
+                                            height: 15,
+                                            width: 120,
+                                            margin: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: const Color(0xff00FFC2)),
+                                            child: CustomWidget().myText(StringData.assurancePris, size: 10, color: Colors.grey),
+                                          ),
+                                        ],
+                                      )
+                                    : Expanded(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            StringData.assurEcranBrise,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                const Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                      // Column(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: const [
-                      //     // Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25),
-                      //
-                      //   ],
-                      // )
                     ],
                   ),
                 ),
@@ -289,6 +295,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void setImageFile(File? newImageFile) {
     setState(() {
       imageFile = newImageFile;
+    });
+  }
+
+  void setEcranBriseActive(double p) {
+    setState(() {
+      ecranBriseActive = true;
+      prix = p.toString().substring(0, 4);
     });
   }
 }

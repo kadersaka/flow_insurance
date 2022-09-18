@@ -49,6 +49,7 @@ class StringData {
   static String disfonc = "DISFONCTIONNEMENT";
   static String faiteAss = "Faite assurer : micro, camera ,port usb de votre smartphone";
   static String nouveauSmar = "NOUVEAU SMARTPHONE";
+  static String assurEcranBrise = "Faites assurer l'ecran de votre smartphone";
   static String besoin = "Besoin de rechanger son smartphone? souscrit a une assurance Flow et obtenez un nouveau telephone en cas de nouvelle game disponible";
   static String vousAvez = "Vous avez souscrit a une assurance Ecran brise pour votre smartphone";
   static String dateSous = "Date de souscription";

@@ -1,6 +1,7 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
 import 'package:flowinsurance/views/home/component/souscrire_nouveau_telephone.dart';
+import 'package:flowinsurance/views/home/partenaire.dart';
 import 'package:flowinsurance/views/home/principal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,18 +73,20 @@ class _AssurerNouveauTelephoneState extends State<AssurerNouveauTelephone> {
                   Expanded(
                       child: Container(
                     margin: const EdgeInsets.only(left: 8, right: 8),
-                    child: const Text.rich(
-                        TextSpan(
-                            text: "Rendez vous chez l'un de nos partenaires pour l'achat de votre smarphone. ",
-                            style: TextStyle(color: Colors.black, fontSize: 12),
-                            children: [TextSpan(text: "Voir la liste de nos partenaires", style: TextStyle(color: Color.fromARGB(255, 107, 217, 245), decoration: TextDecoration.underline))]),
-                        maxLines: 2),
+                    child: TextButton(
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PartenairePage())),
+                        child: const Text.rich(
+                            TextSpan(
+                                text: "Rendez vous chez l'un de nos partenaires pour l'achat de votre smarphone. ",
+                                style: TextStyle(color: Colors.black, fontSize: 12),
+                                children: [TextSpan(text: "Voir la liste de nos partenaires", style: TextStyle(color: Color.fromARGB(255, 107, 217, 245), decoration: TextDecoration.underline))]),
+                            maxLines: 3)),
                   )),
                 ],
               ),
             ),
             Container(
-              // height: 70,
+              height: 70,
               margin: const EdgeInsets.only(left: 8, top: 15, bottom: 15),
               child: Row(
                 children: [

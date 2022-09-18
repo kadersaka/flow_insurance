@@ -7,7 +7,8 @@ import 'dart:math' as math;
 import '../../../constants/styles.dart';
 
 class AssurerEcranBrise extends StatefulWidget {
-  const AssurerEcranBrise({super.key});
+  final Function(double) fun;
+  AssurerEcranBrise({super.key, required this.fun});
 
   @override
   State<AssurerEcranBrise> createState() => _AssurerEcranBriseState();
@@ -99,7 +100,12 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
             SizedBox(
               height: size.height / 8,
             ),
-            Center(child: CustomWidget().mybutton(size, StringData.payer, () => _showMyDialog())),
+            Center(
+                child: CustomWidget().mybutton(size, StringData.payer, () {
+              widget.fun(sliderValue);
+              Navigator.pop(context);
+              _showMyDialog();
+            })),
           ],
         ),
       )),
@@ -126,7 +132,7 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
           ),
           margin: const EdgeInsets.only(bottom: 14),
           child: TextFormField(
-            obscureText: true,
+            keyboardType: TextInputType.phone,
             autofocus: false,
             decoration: const InputDecoration(
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
@@ -160,7 +166,8 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+
+      // barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           //title: const Text('AlertDialog Title'),
@@ -184,7 +191,7 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
                 ElevatedButton(
                     style: ButtonStyle1(MediaQuery.of(context).size.width * 0.5),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
+                      Navigator.pop(context);
                     },
                     child: Text(
                       StringData.compris,

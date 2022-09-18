@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 
 class ScreenTestPage extends StatefulWidget {
-  // GestureTapCallback? fun;
+  
   final Function() fun;
   ScreenTestPage({Key? key, required this.fun}) : super(key: key);
 
