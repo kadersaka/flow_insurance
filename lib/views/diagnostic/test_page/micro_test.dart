@@ -42,11 +42,8 @@ class _MicroTestState extends State<MicroTest> {
         setState(() {});
         if (_lastWords == 'YES') {
           _showToast("Micro test reussi avec succès !!");
-
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => const AccueilDiagnostic()),
-              (route) => false);
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
         }
       },
     );

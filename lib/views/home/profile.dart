@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:prefs/prefs.dart';
 
+import '../../constants/strings.dart';
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -122,6 +124,7 @@ class _ProfileState extends State<Profile> {
                 TextButton(
                   onPressed: () {
                     DataBaseService().setPreferences("", "");
+                    for (int i = 0; i < StringData.essai.length; i++) StringData.essai[i][2]="";
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AccueilPage()), (route) => false);
                   },
                   child: Row(
