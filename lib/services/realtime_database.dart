@@ -36,8 +36,10 @@ class DataBaseService {
     final ref = FirebaseDatabase.instance.ref();
     Prefs.init();
     String phoneNumber = Prefs.getString("PHONENUMBER", "");
+    print("Phone number is $phoneNumber");
     final snapshot = await ref.child("users/$phoneNumber/phones/${StringData.myIme}").get();
     var json = snapshot.exists ? snapshot.value as Map<dynamic, dynamic> : {};
+    print("json found  --------$json");
     if (snapshot.exists) {
       StringData.essai[0][2] = json[StringData.essai[0][0]];
       StringData.essai[1][2] = json[StringData.essai[1][0]];
@@ -48,8 +50,12 @@ class DataBaseService {
       StringData.essai[6][2] = json[StringData.essai[6][0]];
       StringData.essai[7][2] = json[StringData.essai[7][0]];
       StringData.essai[8][2] = json[StringData.essai[8][0]];
-      StringData.essai[9][2] = json[StringData.essai[9][0]];
-    }
+      // StringData.essai[9][2] = json[StringData.essai[9][0]];
+      // print("phone data Loading--------");
+      // for (int i = 0; i < StringData.essai.length; i++) print("${StringData.essai[i][0]}-------------${StringData.essai[i][2]}");
+
+    } else
+      print("Load phone data failed");
   }
 
   Future<void> setPhoneDetailsToDatabase() async {
@@ -66,9 +72,8 @@ class DataBaseService {
       StringData.essai[6][0]: StringData.essai[6][2],
       StringData.essai[7][0]: StringData.essai[7][2],
       StringData.essai[8][0]: StringData.essai[8][2],
-      StringData.essai[9][0]: StringData.essai[9][2],
     });
-        // print("fait  ${StringData.essai[StringData.essai.indexOf(e)][2]}");
+    // print("fait  ${StringData.essai[StringData.essai.indexOf(e)][2]}");
 
     print("Phone details add to database");
     print({
@@ -81,7 +86,7 @@ class DataBaseService {
       StringData.essai[6][0]: StringData.essai[6][2],
       StringData.essai[7][0]: StringData.essai[7][2],
       StringData.essai[8][0]: StringData.essai[8][2],
-      StringData.essai[9][0]: StringData.essai[9][2],
+      // StringData.essai[9][0]: StringData.essai[9][2],
     });
   }
 

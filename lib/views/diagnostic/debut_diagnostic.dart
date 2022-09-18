@@ -26,29 +26,32 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
     String? imei = "";
     AndroidDeviceInfo andro = await deviceInfo.androidInfo;
     imei = await UniqueIdentifier.serial;
-    setState(() {
-      androidInfo = andro;
-      StringData.infinix = androidInfo.board!;
-      StringData.myModel = androidInfo.model!;
-      if (imei != null) StringData.myIme = imei;
+
+    androidInfo = andro;
+    StringData.infinix = androidInfo.board!;
+    StringData.myModel = androidInfo.model!;
+    if (imei != null) StringData.myIme = imei;
+    DataBaseService().getPhoneDetailsFromDatabase();
+    print('Running on ${androidInfo.model}');
+    Future.delayed(const Duration(milliseconds: 400), (() {
+      setState(() {});
       loading = false;
-      print('Running on ${androidInfo.model}');
-    });
+    }));
   }
 
   @override
   void initState() {
-    _initInfo();
-    DataBaseService().getPhoneDetailsFromDatabase();
     super.initState();
+    _initInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator())
           : SafeArea(
               child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,60 +113,61 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                 Padding(padding: const EdgeInsets.all(10), child: CustomWidget().myText(StringData.resulDiagnos, isbols: false, size: 15)),
                 Wrap(
                     spacing: 10,
-                    children: StringData.essai
-                        .map((e) => Container(
-                              margin: const EdgeInsets.symmetric(vertical: 5),
-                              height: 92,
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      if (e[2] != "1") {
-                                        if (e[0] == StringData.essai[1][0]) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => ScreenTestPage(
-                                                        fun: () => setBadgeIcon(e),
-                                                      )));
-                                        }
-                                        if (e[0] == StringData.essai[2][0]) {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const MicroTest()));
-                                        }
-                                        setState(() {
-                                          e[2] = "0";
-                                        });
-                                      }
-                                    },
-                                    child: Badge(
-                                      badgeColor: Colors.white,
-                                      showBadge: e[2] != "",
-                                      badgeContent: e[2] == "0"
-                                          ? const Icon(
-                                              Icons.close,
-                                              color: Colors.red,
-                                            )
-                                          : const Icon(
-                                              Icons.check,
-                                              color: Colors.green,
-                                            ),
-                                      child: Container(
-                                        height: 70,
-                                        width: 80,
-                                        decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
-                                        child: Image.asset(
-                                          "assets/${e[1]}",
-                                          fit: BoxFit.cover,
-                                        ),
+                    children: List.generate(StringData.essai.length, (i) {
+                      setState(() {});
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        height: 92,
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                if (StringData.essai[i][2] != "1") {
+                                  if (StringData.essai[i][0] == StringData.essai[1][0]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ScreenTestPage(
+                                                  fun: () => setBadgeIcon(i),
+                                                )));
+                                  }
+                                  if (StringData.essai[i][0] == StringData.essai[2][0]) {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MicroTest()));
+                                  }
+                                  setState(() {
+                                    StringData.essai[i][2] = "0";
+                                  });
+                                }
+                              },
+                              child: Badge(
+                                badgeColor: Colors.white,
+                                showBadge: StringData.essai[i][2] != "",
+                                badgeContent: StringData.essai[i][2] == "0"
+                                    ? const Icon(
+                                        Icons.close,
+                                        color: Colors.red,
+                                      )
+                                    : const Icon(
+                                        Icons.check,
+                                        color: Colors.green,
                                       ),
-                                    ),
+                                child: Container(
+                                  height: 70,
+                                  width: 80,
+                                  decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.5)),
+                                  child: Image.asset(
+                                    "assets/${StringData.essai[i][1]}",
+                                    fit: BoxFit.cover,
                                   ),
-                                  const SizedBox(height: 3),
-                                  CustomWidget().myText(e[0], isbols: false),
-                                ],
+                                ),
                               ),
-                            ))
-                        .toList()),
+                            ),
+                            const SizedBox(height: 3),
+                            CustomWidget().myText(StringData.essai[i][0], isbols: false),
+                          ],
+                        ),
+                      );
+                    })),
                 Center(
                     child: CustomWidget().mybutton(size, StringData.continuer, () {
                   DataBaseService().setPhoneDetailsToDatabase().then((value) => Navigator.of(context).push(
@@ -175,10 +179,8 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
     );
   }
 
-  void setBadgeIcon(List<String> e) {
-    setState(() {
-      StringData.essai[StringData.essai.indexOf(e)][2] = "1";
-    });
-    print("fait  ${StringData.essai[StringData.essai.indexOf(e)][2]}");
+  void setBadgeIcon(int i) {
+    StringData.essai[i][2] = "1";
+    setState(() {});
   }
 }
