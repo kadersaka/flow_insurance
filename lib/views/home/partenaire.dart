@@ -23,7 +23,7 @@ class _PartenairePageState extends State<PartenairePage> {
       appBar: AppBar(
         leading: TextButton(onPressed: () => Navigator.pop(context), child: const Icon(Icons.arrow_back, color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,

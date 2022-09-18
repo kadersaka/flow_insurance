@@ -69,7 +69,7 @@ class _DemanderReparationState extends State<DemanderReparation> {
             StringData.submit,
             () => {},
           )),
-          SizedBox(height: 15)
+          const SizedBox(height: 15)
         ],
       )),
     );

@@ -116,7 +116,8 @@ class _CreateSuccessfullState extends State<CreateSuccessfull> {
                     style: ButtonStyle1(MediaQuery.of(context).size.width * 0.8),
                     // style: ButtonStyle1(size),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()));
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
                     },
                     child: Text(
                       StringData.autoriserIdentification,

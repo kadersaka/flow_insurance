@@ -1,4 +1,3 @@
-
 import 'package:flowinsurance/constants/images.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/constants/styles.dart';
@@ -45,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const AccueilPage()));
+                    Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),

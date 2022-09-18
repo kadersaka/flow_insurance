@@ -174,7 +174,8 @@ class _SouscrireNouveauTelephoneState extends State<SouscrireNouveauTelephone> {
                     style: ButtonStyle1(MediaQuery.of(context).size.width * 0.5),
                     // style: ButtonStyle1(size),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const PrincipalPage()), (route) => false);
                     },
                     child: Text(
                       StringData.compris,

@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Expanded(child: SizedBox()),
+                    const Expanded(child: SizedBox()),
                     InkWell(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageProfilPage(ImageFile: imageFile, fun: setImageFile))),
                       child: Container(
@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ],
                               ),
-                              Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                              const Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
                             ],
                           ),
                         ],
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-                              Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                              const Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
                             ],
                           ),
                         )
@@ -238,12 +238,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AssurerNouveauTelephone())),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AssurerNouveauTelephone())),
             child: Container(
               margin: const EdgeInsets.all(5),
               height: 120,
               width: double.infinity,
-              color: Color.fromARGB(255, 235, 241, 236),
+              color: const Color.fromARGB(255, 235, 241, 236),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
+                        const Icon(Icons.play_arrow, color: const Color.fromARGB(255, 12, 94, 23), size: 30),
                       ],
                     ),
                   )

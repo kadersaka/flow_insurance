@@ -183,7 +183,6 @@ class _AssurerEcranBriseState extends State<AssurerEcranBrise> {
                 ),
                 ElevatedButton(
                     style: ButtonStyle1(MediaQuery.of(context).size.width * 0.5),
-                    // style: ButtonStyle1(size),    
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PrincipalPage()));
                     },
