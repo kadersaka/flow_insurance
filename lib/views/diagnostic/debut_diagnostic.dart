@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
-import 'package:flowinsurance/views/diagnostic/test_page/test_sim.dart';
+import 'package:flowinsurance/views/diagnostic/test_page/test_sim_data.dart';
 import 'package:flutter/material.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
@@ -162,20 +162,24 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                                           if (StringData.essai[i][0] ==
                                               StringData.essai[2][0]) {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SpeechSampleApp(
-                                                            fun: () =>
-                                                                setBadgeIcon(
-                                                                    i))));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SpeechSampleApp(
+                                                  fun: () => setBadgeIcon(i),
+                                                ),
+                                              ),
+                                            );
                                           }
                                           if (StringData.essai[i][0] ==
                                               StringData.essai[4][0]) {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => TestSim(),
+                                                builder: (context) =>
+                                                    TestSimData(
+                                                  fun: () => setBadgeIcon(i),
+                                                ),
                                               ),
                                             );
                                           }
