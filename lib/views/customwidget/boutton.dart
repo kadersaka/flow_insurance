@@ -17,7 +17,7 @@ class CustomWidget {
   Text myText(String text, {double size = 13, Color color = Colors.black, bool isbols = false, bool isUnderlined = false}) {
     return Text(
       text,
-      overflow: TextOverflow.ellipsis,
+      // overflow: TextOverflow.ellipsis,
       maxLines: 3,
       style: TextStyle(fontWeight: isbols ? FontWeight.bold : FontWeight.normal, color: color, decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none, fontSize: size),
     );

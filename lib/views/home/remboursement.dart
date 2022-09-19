@@ -2,7 +2,7 @@ import 'package:flowinsurance/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'component/assurer_ecran_brise.dart';
+import 'component/souscriptionScreen.dart';
 import 'component/detail_ecran_brise.dart';
 
 class RemboursementPage extends StatefulWidget {

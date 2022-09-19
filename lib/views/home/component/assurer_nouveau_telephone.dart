@@ -1,13 +1,10 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
-import 'package:flowinsurance/views/home/component/souscrire_nouveau_telephone.dart';
-import 'package:flowinsurance/views/home/partenaire.dart';
-import 'package:flowinsurance/views/home/principal.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:flowinsurance/views/home/component/souscriptionScreen.dart';
 
-import '../../../constants/styles.dart';
+import 'package:flowinsurance/views/home/partenaire.dart';
+
+import 'package:flutter/material.dart';
 
 class AssurerNouveauTelephone extends StatefulWidget {
   const AssurerNouveauTelephone({super.key});
@@ -155,7 +152,18 @@ class _AssurerNouveauTelephoneState extends State<AssurerNouveauTelephone> {
             ),
             Container(
               margin: const EdgeInsets.only(left: 35, top: 50),
-              child: CustomWidget().mybutton(size, "Souscrire", () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SouscrireNouveauTelephone()))),
+              child: CustomWidget().mybutton(
+                  size,
+                  "Souscrire",
+                  () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SouscriptionScreen(
+                                title: "NOUVEAU TELEPHONE",
+                                color: const Color.fromARGB(255, 219, 250, 219),
+                                subtitle: "Cet assurance est uniquement souscrivable sur les nouveaux telephones achetes aupres de vos partenaires ",
+                                fun: (str) {},
+                              )))),
             )
           ],
         ),

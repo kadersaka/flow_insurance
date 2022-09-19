@@ -31,11 +31,11 @@ class StringData {
   static String phoneDiagn = "Phone Diagnostic";
   static String resulDiagnos = "Veuillez svp selectionner chaque options pour que notre system puis verifier l'etat de votre smartphone";
   static List<List<String>> essai = [
-    ["Camera", "phone.png", ""],
     ["Ecran", "smart_screen.png", ""],
     ["Micro", "micro.png", ""],
-    ["Haut Parleur", "speaker.png", ""],
     ["SIM", "sim.png", ""],
+    ["Camera", "phone.png", ""],
+    ["Haut Parleur", "speaker.png", ""],
     ["Port ecoute", "new_micro.png", ""],
     ["Flash", "istock.png", ""],
     ["Wifi", "wifi.png", ""],
@@ -65,7 +65,7 @@ class StringData {
   static String submit = "Soumettre";
   static String choisir = "Choisissez la periode de souscription de votre assurance et payer avec votre compte MoMo";
   static String prix2 = "2.999";
-  static String devise = "FCFA";
+  static String devise = " FCFA";
   static String momo = "Numero MoMo";
   static String payer = "PAYER : 2.999 FCFA";
   static String activeSous = "Votre souscription est activee";
