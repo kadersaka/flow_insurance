@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AssurerNouveauTelephone())),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AssurerNouveauTelephone(fun: assuranceActivation))),
             child: Container(
               margin: const EdgeInsets.all(5),
               height: 120,
@@ -195,6 +195,14 @@ class _HomeScreenState extends State<HomeScreen> {
       imageFile = newImageFile;
     });
   }
+
+  void assuranceActivation(String p) {
+    setState(() {
+      ecranBriseActive = true;
+      prix = p;
+    });
+    print("Toucheeeeeeeeeeeeeee");
+  }
 }
 
 class Bloc extends StatefulWidget {
@@ -236,7 +244,7 @@ class _BlocState extends State<Bloc> {
             builder: (context) => SouscriptionScreen(
                   icon: icon,
                   title: title,
-                  fun: setEcranBriseActive,
+                  fun: assuranceActivation,
                 ))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,7 +315,7 @@ class _BlocState extends State<Bloc> {
     );
   }
 
-  void setEcranBriseActive(String p) {
+  void assuranceActivation(String p) {
     setState(() {
       assuranceActived = true;
       assurancePrice = p;

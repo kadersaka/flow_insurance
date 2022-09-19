@@ -68,17 +68,16 @@ class _SimTestScreenState extends State<SimTestScreen> {
                   if (cards != null && cards.isNotEmpty) {
                     widget.fun();
                     print('carte presente');
-                  } else {
-                    print('carte non presente');
                   }
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(275, 275),
-                  shape: const CircleBorder(), //<-- SEE HERE
+                  shape: const CircleBorder(),
                   padding: const EdgeInsets.all(20),
+                  elevation: 20,
                 ),
-                child: const Text('Verifier', style: TextStyle(fontSize: 25.0)),
+                child: const Text('TESTER', style: TextStyle(fontSize: 25.0)),
               ),
             ),
     );
