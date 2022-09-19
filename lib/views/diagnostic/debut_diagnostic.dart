@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
-import 'package:flowinsurance/views/diagnostic/test_page/micro_test2.dart';
+import 'package:flowinsurance/views/diagnostic/test_page/micro_test.dart';
 
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -10,7 +10,7 @@ import 'package:unique_identifier/unique_identifier.dart';
 
 import '../home/principal.dart';
 import 'test_page/ScreenTestPage.dart';
-import 'test_page/micro_test.dart';
+import 'test_page/simTestSreen.dart';
 
 class AccueilDiagnostic extends StatefulWidget {
   const AccueilDiagnostic({super.key});
@@ -125,11 +125,14 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                                     InkWell(
                                       onTap: () {
                                         if (StringData.essai[i][2] != "1") {
-                                          if (i==0) {
+                                          if (i == 0) {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenTestPage(fun: () => setBadgeIcon(i))));
                                           }
-                                          if (i==1) {
+                                          if (i == 1) {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => SpeechSampleApp(fun: () => setBadgeIcon(i))));
+                                          }
+                                          if (i == 2) {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => SimTestScreen(fun: () => setBadgeIcon(i))));
                                           }
                                           setState(() {
                                             StringData.essai[i][2] = "0";
