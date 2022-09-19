@@ -175,8 +175,7 @@ class _AccueilDiagnosticState extends State<AccueilDiagnostic> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const TestSim(),
+                                                builder: (context) => TestSim(),
                                               ),
                                             );
                                           }

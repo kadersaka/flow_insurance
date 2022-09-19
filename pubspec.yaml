@@ -42,6 +42,8 @@ dependencies:
   flutter_draggable_gridview: ^0.0.7
   badges: ^2.0.3
   mobile_number: ^2.1.0
+  sim_data: ^0.0.2
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_test:
