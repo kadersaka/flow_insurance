@@ -1,6 +1,8 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
 import 'package:flowinsurance/constants/strings.dart';
+import 'package:flowinsurance/models/assurance.dart';
+import 'package:flowinsurance/services/realtime_database.dart';
 import 'package:flowinsurance/views/home/component/souscriptionScreen.dart';
 import 'package:flowinsurance/views/home/component/assurer_nouveau_telephone.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,8 +20,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late File? imageFile;
-  bool ecranBriseActive = false;
+  CustomBool ecranBriseActived = CustomBool(false);
+  CustomBool dysfoncActived = CustomBool(false);
+  CustomBool newPhoneActived = CustomBool(false);
   String prix = "0";
+  late Map<String, Assurance> listAssurance;
+  Future<void> _init() async {}
   @override
   void initState() {
     imageFile = null;
@@ -120,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Bloc(
                   title: StringData.ecranBrise,
                   subtitle: StringData.assurEcranBrise,
-                  assuranceActived: ecranBriseActive,
+                  // assuranceActived: ecranBriseActived,
                   activedWidth: 150,
                   desactivedWidth: 150,
                   assurancePrice: prix,
@@ -130,9 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 flex: 55,
                 child: Bloc(
-                  title: "DISFONCTIONNEMENT",
+                  title: StringData.disfonc,
                   subtitle: StringData.faiteAss,
-                  assuranceActived: ecranBriseActive,
+                  assuranceActived: dysfoncActived,
                   activedWidth: 182,
                   desactivedWidth: 190,
                   assurancePrice: prix,
@@ -198,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void assuranceActivation(String p) {
     setState(() {
-      ecranBriseActive = true;
+      newPhoneActived.theBool = true;
       prix = p;
     });
     print("Toucheeeeeeeeeeeeeee");
@@ -206,32 +212,22 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class Bloc extends StatefulWidget {
-  bool assuranceActived;
   String assurancePrice, title, subtitle;
   IconData icon;
   double activedWidth, desactivedWidth;
-
-  Bloc(
-      {super.key,
-      required this.assuranceActived,
-      required this.activedWidth,
-      required this.desactivedWidth,
-      required this.assurancePrice,
-      required this.icon,
-      required this.subtitle,
-      required this.title});
+  Assurance? assu;
+  Bloc({super.key, required this.assu, required this.activedWidth, required this.desactivedWidth, required this.assurancePrice, required this.icon, required this.subtitle, required this.title});
 
   @override
-  State<Bloc> createState() => _BlocState(assuranceActived, assurancePrice, activedWidth, desactivedWidth, icon, subtitle, title);
+  State<Bloc> createState() => _BlocState(assu, assurancePrice, activedWidth, desactivedWidth, icon, subtitle, title);
 }
 
 class _BlocState extends State<Bloc> {
-  bool assuranceActived;
   String assurancePrice, title, subtitle;
   IconData icon;
   double activedWidth, desactivedWidth;
-
-  _BlocState(this.assuranceActived, this.assurancePrice, this.activedWidth, this.desactivedWidth, this.icon, this.subtitle, this.title);
+  Assurance? assu;
+  _BlocState(this.assu, this.assurancePrice, this.activedWidth, this.desactivedWidth, this.icon, this.subtitle, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -267,18 +263,18 @@ class _BlocState extends State<Bloc> {
                     CustomWidget().myText(title, size: 13, isbols: true),
                     Column(
                       children: [
-                        Visibility(visible: assuranceActived, child: const Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25)),
+                        Visibility(visible: assu != null, child: const Icon(Icons.check_circle, color: Color(0xff00FFC2), size: 25)),
                         const SizedBox(height: 20),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(
-                  width: assuranceActived ? activedWidth : desactivedWidth,
+                  width: assu != null ? activedWidth : desactivedWidth,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      assuranceActived
+                      assu != null
                           ? Column(
                               children: [
                                 Padding(
@@ -316,9 +312,16 @@ class _BlocState extends State<Bloc> {
   }
 
   void assuranceActivation(String p) {
-    setState(() {
-      assuranceActived = true;
+    String f, l;
+    var now = DateTime.now();
+    f = DateFormat('yMd').format(now);
+    
+final later = now.add(const Duration(days:));
+   
+     setState(() {
+      assu = Assurance(title, p.substring(12), DateFormat('yMd').format(DateTime.now()), expiryDate, reparationsCounter, activated);
       assurancePrice = p;
+      DataBaseService().setAssuranceToDatabase(Assurane);
     });
   }
 }

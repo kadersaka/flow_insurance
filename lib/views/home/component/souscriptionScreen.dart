@@ -87,29 +87,10 @@ class _SouscriptionScreenState extends State<SouscriptionScreen> {
                 ],
               ),
             ),
-            // Center(
-            //   child: Slider(
-            //     activeColor: const Color(0xffFFD998),
-            //     inactiveColor: Colors.grey,
-            //     value: sliderValue,
-            //     min: 0.0,
-            //     max: 100,
-            //     onChanged: (value) {
-            //       setState(() {
-            //         sliderValue = value;
-            //       });
-            //     },
-            //   ),
-            // ),
             Center(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    color: const Color.fromARGB(255, 51, 50, 47),
-                    height: 3,
-                    width: 53,
-                  ),
                   InkWell(
                     onTap: () => setPrice(0, "3000 FCFA / 3 mois"),
                     child: Container(
@@ -119,8 +100,13 @@ class _SouscriptionScreenState extends State<SouscriptionScreen> {
                         shape: BoxShape.circle,
                         color: bol[0] ? Colors.amber : const Color.fromARGB(255, 48, 106, 214),
                       ),
-                      child: const Center(
-                        child: Text("3", textScaleFactor: 1.2),
+                      child: Center(
+                        child: Column(
+                          children: const [
+                            Text("3", textScaleFactor: 1.2),
+                            Text("mois", textScaleFactor: 0.75),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -134,7 +120,13 @@ class _SouscriptionScreenState extends State<SouscriptionScreen> {
                         shape: BoxShape.circle,
                         color: bol[1] ? Colors.amber : const Color.fromARGB(255, 48, 106, 214),
                       ),
-                      child: const Center(child: Text("6", textScaleFactor: 1.2)),
+                      child: Center(
+                          child: Column(
+                        children: const [
+                          Text("6", textScaleFactor: 1.2),
+                          Text("mois", textScaleFactor: 0.75),
+                        ],
+                      )),
                     ),
                   ),
                   Container(color: const Color.fromARGB(255, 51, 50, 47), height: 3, width: 53),
@@ -147,7 +139,13 @@ class _SouscriptionScreenState extends State<SouscriptionScreen> {
                         shape: BoxShape.circle,
                         color: bol[2] ? Colors.amber : const Color.fromARGB(255, 48, 106, 214),
                       ),
-                      child: const Center(child: Text("12", textScaleFactor: 1.2)),
+                      child: Center(
+                          child: Column(
+                        children: const [
+                          Text("12", textScaleFactor: 1.2),
+                          Text("mois", textScaleFactor: 0.75),
+                        ],
+                      )),
                     ),
                   ),
                 ],

@@ -88,3 +88,8 @@ class StringData {
   // static String infinix = "";
 
 }
+
+class CustomBool {
+  bool theBool;
+  CustomBool(this.theBool);
+}
