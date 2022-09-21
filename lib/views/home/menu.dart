@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flowinsurance/views/home/component/details_assurance.dart';
 import 'package:intl/intl.dart';
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/models/assurance.dart';
@@ -161,51 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: StringData.nouveauSmar,
                   color: const Color.fromARGB(255, 235, 241, 236),
                 ),
-
-                // InkWell(
-                //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AssurerNouveauTelephone(fun: assuranceActivation))),
-                //   child: Container(
-                //     margin: const EdgeInsets.all(5),
-                //     height: 120,
-                //     width: double.infinity,
-                //     color: const Color.fromARGB(255, 235, 241, 236),
-                //     child: Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Row(
-                //           children: [
-                //             const Padding(
-                //               padding: EdgeInsets.all(8.0),
-                //               child: Icon(
-                //                 Icons.phone_android,
-                //                 size: 40,
-                //               ),
-                //             ),
-                //             CustomWidget().myText(StringData.nouveauSmar, size: 13, isbols: true),
-                //           ],
-                //         ),
-                //         Expanded(
-                //           child: Row(
-                //             children: [
-                //               Expanded(
-                //                 child: Padding(
-                //                   padding: const EdgeInsets.all(8.0),
-                //                   child: Text(
-                //                     StringData.besoin,
-                //                     textAlign: TextAlign.start,
-                //                     maxLines: 3,
-                //                     overflow: TextOverflow.ellipsis,
-                //                   ),
-                //                 ),
-                //               ),
-                //               const Icon(Icons.play_arrow, color: Color.fromARGB(255, 12, 94, 23), size: 30),
-                //             ],
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             )),
     );
@@ -215,14 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       imageFile = newImageFile;
     });
-  }
-
-  void assuranceActivation(String p) {
-    setState(() {
-      // newPhoneActived.theBool = true;
-      prix = p;
-    });
-    print("Toucheeeeeeeeeeeeeee");
   }
 }
 
@@ -260,18 +208,20 @@ class _BlocState extends State<Bloc> {
       height: 120,
       color: widget.color ?? const Color(0xffEEF7FF),
       child: InkWell(
-        onTap: () => title != StringData.nouveauSmar
-            ? Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SouscriptionScreen(
-                      icon: icon,
-                      title: title,
-                      fun: assuranceActivation,
-                    )))
-            : Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AssurerNouveauTelephone(fun: assuranceActivation),
-                )),
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => assu == null
+                ? title != StringData.nouveauSmar
+                    ? SouscriptionScreen(
+                        icon: icon,
+                        title: title,
+                        fun: assuranceActivation,
+                      )
+                    : AssurerNouveauTelephone(fun: assuranceActivation)
+                : DetailAssurance(
+                    assu: assu!,
+                    title: title,
+                    icon: icon,
+                  ))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -342,9 +292,7 @@ class _BlocState extends State<Bloc> {
   }
 
   void assuranceActivation(String p) {
-    String now, later;
-
-    now = DateFormat('dd/MM/yyyy').format(DateTime.now());
+    String later, now = DateFormat('dd/MM/yyyy').format(DateTime.now());
     print("now time  $now");
     if (p[p.length - 1] == 'n') {
       later = DateFormat('dd/MM/yyyy').format(DateTime(DateTime.now().year + 1, DateTime.now().month, DateTime.now().day));

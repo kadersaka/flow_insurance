@@ -2,7 +2,6 @@ import 'package:flowinsurance/views/home/menu.dart';
 import 'package:flowinsurance/views/home/partenaire.dart';
 import 'package:flowinsurance/views/home/profile.dart';
 import 'package:flowinsurance/views/home/remboursement.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 

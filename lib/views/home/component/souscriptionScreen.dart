@@ -1,6 +1,5 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flowinsurance/views/customwidget/boutton.dart';
-import 'package:flowinsurance/views/home/principal.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -19,16 +18,9 @@ class SouscriptionScreen extends StatefulWidget {
 }
 
 class _SouscriptionScreenState extends State<SouscriptionScreen> {
-  double sliderValue = 3;
   TextEditingController controller = TextEditingController();
   String price = "3000 FCFA / 3 mois";
   List<bool> bol = [true, false, false];
-
-  @override
-  void initState() {
-    controller = TextEditingController();
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -70,7 +62,7 @@ class _SouscriptionScreenState extends State<SouscriptionScreen> {
                       color: widget.color,
                       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       padding: const EdgeInsets.all(8),
-                      child: Text(widget.subtitle == null ? "Vous avez souscrit a une assurance ${widget.title} pour votre smartphone" : widget.subtitle!),
+                      child: Text(widget.subtitle == null ? StringData.choisir : widget.subtitle!),
                     ),
                   ),
                 ],

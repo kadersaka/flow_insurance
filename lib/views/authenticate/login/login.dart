@@ -194,6 +194,9 @@ class _LoginPageState extends State<LoginPage> {
                           _showToast("Vous êtes connecté avec succès !!!");
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AccueilDiagnostic()), (route) => false);
                         } else {
+                          setState(() {
+                            isLoading = false;
+                          });
                           _showToast("Connection echouée. \n Veuillez verifier votre mot de passe");
                         }
                       });

@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import '../../constants/styles.dart';
 
 class CustomWidget {
-  Widget mybutton(Size size, String text, Function()? onPressed, {bool withLoading = false , Widget child = const Text("")}) {
+  Widget mybutton(Size size, String text, Function()? onPressed, {bool withLoading = false, Widget child = const Text("")}) {
     return ElevatedButton(
-        style: ButtonStyle1(size.width * 0.8),
-        onPressed: onPressed ,
-        child: !withLoading ? Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ) : child ,
+      style: ButtonStyle1(size.width * 0.8),
+      onPressed: onPressed,
+      child: !withLoading ? Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)) : child,
     );
   }
 

@@ -1,9 +1,7 @@
 import 'package:flowinsurance/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-
-import 'component/souscriptionScreen.dart';
-import 'component/detail_ecran_brise.dart';
+import 'component/details_assurance.dart';
 
 class RemboursementPage extends StatefulWidget {
   const RemboursementPage({super.key});
@@ -53,7 +51,7 @@ class _RemboursementPageState extends State<RemboursementPage> {
                           borderRadius: BorderRadius.circular(12),
                         ))),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailEcranBrise()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailEcranBrise()));
                     },
                     child: const Text("Soumettre", style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold))),
                 const SizedBox(width: 10)
