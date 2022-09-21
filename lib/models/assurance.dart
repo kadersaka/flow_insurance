@@ -8,7 +8,7 @@ class Assurance {
       "subscriptionDate": subscriptionDate,
       "expiryDate": expiryDate,
       "reparationsCounter": reparationsCounter,
-      "activated": reparationsCounter,
+      "activated": activated,
     };
   }
 }

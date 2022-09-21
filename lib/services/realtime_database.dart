@@ -100,43 +100,51 @@ class DataBaseService {
     Prefs.init();
     String phoneNumber = Prefs.getString("PHONENUMBER", "");
     final ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child("users/$phoneNumber/assurances").get();
+    final snapshot = await ref.child("users/$phoneNumber/phones/${StringData.myIme}/assurances").get();
     if (snapshot.exists) {
       var json = snapshot.value as Map<dynamic, dynamic>;
       all = {
-        StringData.ecranBrise: Assurance(
-          StringData.ecranBrise,
-          json[StringData.ecranBrise]["delay"],
-          json[StringData.ecranBrise]["subscriptionDate"],
-          json[StringData.ecranBrise]["expiryDate"],
-          json[StringData.ecranBrise]["reparationsCounter"],
-          json[StringData.ecranBrise]["activated"],
-        ),
-        StringData.disfonc: Assurance(
-          StringData.disfonc,
-          json[StringData.disfonc]["delay"],
-          json[StringData.disfonc]["subscriptionDate"],
-          json[StringData.disfonc]["expiryDate"],
-          json[StringData.disfonc]["reparationsCounter"],
-          json[StringData.disfonc]["activated"],
-        ),
-        StringData.nouveauSmar: Assurance(
-          StringData.nouveauSmar,
-          json[StringData.nouveauSmar]["delay"],
-          json[StringData.nouveauSmar]["subscriptionDate"],
-          json[StringData.nouveauSmar]["expiryDate"],
-          json[StringData.nouveauSmar]["reparationsCounter"],
-          json[StringData.nouveauSmar]["activated"],
-        )
+        StringData.ecranBrise: json[StringData.ecranBrise] != null
+            ? Assurance(
+                StringData.ecranBrise,
+                json[StringData.ecranBrise]["delay"],
+                json[StringData.ecranBrise]["subscriptionDate"],
+                json[StringData.ecranBrise]["expiryDate"],
+                json[StringData.ecranBrise]["reparationsCounter"],
+                json[StringData.ecranBrise]["activated"],
+              )
+            : null,
+        StringData.disfonc: json[StringData.disfonc] != null
+            ? Assurance(
+                StringData.disfonc,
+                json[StringData.disfonc]["delay"],
+                json[StringData.disfonc]["subscriptionDate"],
+                json[StringData.disfonc]["expiryDate"],
+                json[StringData.disfonc]["reparationsCounter"],
+                json[StringData.disfonc]["activated"],
+              )
+            : null,
+        StringData.nouveauSmar: json[StringData.nouveauSmar] != null
+            ? Assurance(
+                StringData.nouveauSmar,
+                json[StringData.nouveauSmar]["delay"],
+                json[StringData.nouveauSmar]["subscriptionDate"],
+                json[StringData.nouveauSmar]["expiryDate"],
+                json[StringData.nouveauSmar]["reparationsCounter"],
+                json[StringData.nouveauSmar]["activated"],
+              )
+            : null,
       };
     }
+    print("all assurance loaded  $all");
     return all;
   }
 
   Future<void> setAssuranceToDatabase(Assurance assu) async {
     Prefs.init();
     String phoneNumber = Prefs.getString("PHONENUMBER", "");
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/$phoneNumber/assurances/${assu.name}");
-    await ref.set({assu.toJson()});
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/$phoneNumber/phones/${StringData.myIme}/assurances/${assu.name}");
+    await ref.set(assu.toJson());
+    print("Assurance details add to DB ${assu.toJson()}");
   }
 }
