@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 isLoading = true;
                                 isVisible = false;
                               });
-                              await DataBaseService().addToDataBase(newUser).then((value) {
+                              await DataBaseService().addUserToDataBase(newUser).then((value) {
                                 setState(() {
                                   isLoading = false;
                                 });

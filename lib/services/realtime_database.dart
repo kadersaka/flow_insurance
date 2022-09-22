@@ -8,7 +8,7 @@ import '../models/assurance.dart';
 class DataBaseService {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
-  Future<void> addToDataBase(AppUser user) async {
+  Future<void> addUserToDataBase(AppUser user) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user.phoneNumber}");
     await ref.set({
       "name": user.name,
@@ -62,31 +62,24 @@ class DataBaseService {
   Future<void> setPhoneDetailsToDatabase() async {
     Prefs.init();
     String phoneNumber = Prefs.getString("PHONENUMBER", "");
+    var json = {
+      StringData.essai[0][0]: StringData.essai[0][2],
+      StringData.essai[1][0]: StringData.essai[1][2],
+      StringData.essai[2][0]: StringData.essai[2][2],
+      StringData.essai[3][0]: StringData.essai[3][2],
+      StringData.essai[4][0]: StringData.essai[4][2],
+      StringData.essai[5][0]: StringData.essai[5][2],
+      StringData.essai[6][0]: StringData.essai[6][2],
+      StringData.essai[7][0]: StringData.essai[7][2],
+      StringData.essai[8][0]: StringData.essai[8][2],
+    };
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/$phoneNumber/phones/${StringData.myIme}");
-    await ref.set({
-      StringData.essai[0][0]: StringData.essai[0][2],
-      StringData.essai[1][0]: StringData.essai[1][2],
-      StringData.essai[2][0]: StringData.essai[2][2],
-      StringData.essai[3][0]: StringData.essai[3][2],
-      StringData.essai[4][0]: StringData.essai[4][2],
-      StringData.essai[5][0]: StringData.essai[5][2],
-      StringData.essai[6][0]: StringData.essai[6][2],
-      StringData.essai[7][0]: StringData.essai[7][2],
-      StringData.essai[8][0]: StringData.essai[8][2],
-    });
-
-    print("Phone details add to database");
-    print({
-      StringData.essai[0][0]: StringData.essai[0][2],
-      StringData.essai[1][0]: StringData.essai[1][2],
-      StringData.essai[2][0]: StringData.essai[2][2],
-      StringData.essai[3][0]: StringData.essai[3][2],
-      StringData.essai[4][0]: StringData.essai[4][2],
-      StringData.essai[5][0]: StringData.essai[5][2],
-      StringData.essai[6][0]: StringData.essai[6][2],
-      StringData.essai[7][0]: StringData.essai[7][2],
-      StringData.essai[8][0]: StringData.essai[8][2],
-    });
+    final snapshot = await ref.get();
+    snapshot.exists
+        ? json == (snapshot.value as Map<dynamic, dynamic>)
+            ? print("No changes")
+            : {await ref.update(json), print("Phone details updating $json")}
+        : {await ref.set(json), print("Phone details add to database $json")};
   }
 
   void setPreferences(String numero, String mdp) {
