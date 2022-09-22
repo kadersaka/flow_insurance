@@ -75,11 +75,7 @@ class DataBaseService {
     };
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/$phoneNumber/phones/${StringData.myIme}");
     final snapshot = await ref.get();
-    snapshot.exists
-        ? json == (snapshot.value as Map<dynamic, dynamic>)
-            ? print("No changes")
-            : {await ref.update(json), print("Phone details updating $json")}
-        : {await ref.set(json), print("Phone details add to database $json")};
+    snapshot.exists ? {await ref.update(json), print("Phone details updating $json")} : {await ref.set(json), print("Phone details add to database $json")};
   }
 
   void setPreferences(String numero, String mdp) {
